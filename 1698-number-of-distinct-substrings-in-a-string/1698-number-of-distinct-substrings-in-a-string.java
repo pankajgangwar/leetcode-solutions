@@ -11,7 +11,13 @@ class Solution {
         for (int i = 0; i < n; i++) {
             sa[i] = suffixArray[i].orgIdx;
         }
-        /*int[] lcp = new int[n];
+        int[] lcp = constructLcpUsingKasai(n, s, sa);
+        //int[] lcp = constructLcpNaive(n, suffixArray);
+        return (n * (n+1) / 2) - Arrays.stream(lcp).sum();
+    }
+
+    public int[] constructLcpNaive(int n, Suffix[] suffixArray){
+        int[] lcp = new int[n];
         lcp[0] = 0;
         for (int i = 1; i < suffixArray.length; i++) {
             String prev = suffixArray[i-1].suffix;
@@ -25,7 +31,12 @@ class Solution {
                 }
             }
             lcp[i] = currLCP;
-        }*/
+        }
+        return lcp;
+    }
+
+    public int[] constructLcpUsingKasai(int n, String s, int[] sa){
+        // LCP Construction using kasai algorithm
         int[] lcp = new int[n];
         int[] rank = new int[n];
         for (int i = 0; i < n; i++) {
@@ -45,7 +56,7 @@ class Solution {
             lcp[rank[i]] = k;
             k = Math.max(k - 1, 0);
         }
-        return (n * (n + 1) / 2) - Arrays.stream(lcp).sum();
+        return lcp;
     }
 
     class Suffix implements Comparable<Suffix> {
