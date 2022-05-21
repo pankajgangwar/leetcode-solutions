@@ -1,1 +1,1 @@
-​
+Solve it in O(nlogn) using suffix array and lcp
