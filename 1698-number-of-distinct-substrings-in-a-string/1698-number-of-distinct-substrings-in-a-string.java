@@ -11,8 +11,8 @@ class Solution {
         for (int i = 0; i < n; i++) {
             sa[i] = suffixArray[i].orgIdx;
         }
-        int[] lcp = constructLcpUsingKasai(n, s, sa);
-        //int[] lcp = constructLcpNaive(n, suffixArray);
+        //int[] lcp = constructLcpUsingKasai(n, s, sa);
+        int[] lcp = constructLcpNaive(n, suffixArray);
         return (n * (n+1) / 2) - Arrays.stream(lcp).sum();
     }
 
