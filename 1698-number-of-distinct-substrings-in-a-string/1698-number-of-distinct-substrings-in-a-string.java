@@ -1,26 +1,60 @@
 class Solution {
 
     public int countDistinct(String s) {
-        long BASE = 100007L, MOD = (long) (1e11 + 7);
         int n = s.length();
-        long[] pow = new long[n + 10];
-        pow[0] = 1;
-        for (int i = 1; i <= n; ++i) {
-            pow[i] = (pow[i - 1] * n) % MOD;
+        Suffix[] suffixArray = new Suffix[n];
+        for (int i = 0; i < s.length(); i++) {
+            suffixArray[i] = new Suffix(s.substring(i), i);
         }
-        HashSet<String> set = new HashSet<>();
+        Arrays.sort(suffixArray);
+        int[] sa = new int[n];
         for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j <= n; j++) {
-                String sub = s.substring(i, j);
-                //System.out.println(sub);
-                long H = 0L;
-                /*for (int k = 0; k < sub.length(); k++) {
-                    H += ((sub.charAt(k) - 'a') * pow[n - 1 - k]) % MOD;
-                    H %= MOD;
-                }*/
-                set.add(sub);
-            }
+            sa[i] = suffixArray[i].orgIdx;
         }
-        return set.size();
+        int[] lcp = new int[n];
+        lcp[0] = 0;
+        for (int i = 1; i < suffixArray.length; i++) {
+            String prev = suffixArray[i-1].suffix;
+            String curr = suffixArray[i].suffix;
+            int currLCP = 0;
+            for(int j = 0; j < Math.min(prev.length(), curr.length()); j++){
+                if(prev.charAt(j) == curr.charAt(j)){
+                    currLCP++;
+                }else{
+                    break;
+                }
+            }
+            lcp[i] = currLCP;
+        }
+        return (n * (n + 1) / 2) - Arrays.stream(lcp).sum();
+    }
+    
+    class Suffix implements Comparable<Suffix>{
+        final int orgIdx;
+        final String suffix;
+        final int len;
+        public Suffix(String suffix, int orgIdx){
+            this.len = suffix.length();
+            this.orgIdx = orgIdx;
+            this.suffix = suffix;
+        }
+
+        @Override
+        public int compareTo(Suffix other) {
+            if (this == other) return 0;
+            int min_len = Math.min(len, other.len);
+            for (int i = 0; i < min_len; i++) {
+                char otherCh = other.suffix.charAt(i);
+                char thisCh = suffix.charAt(i);
+                if (thisCh < otherCh) return -1;
+                if (thisCh > otherCh) return 1;
+            }
+            return len - other.len;
+        }
+
+        @Override
+        public String toString() {
+            return new String(suffix.toCharArray(), orgIdx, len);
+        }
     }
 }
