@@ -11,7 +11,7 @@ class Solution {
         for (int i = 0; i < n; i++) {
             sa[i] = suffixArray[i].orgIdx;
         }
-        int[] lcp = new int[n];
+        /*int[] lcp = new int[n];
         lcp[0] = 0;
         for (int i = 1; i < suffixArray.length; i++) {
             String prev = suffixArray[i-1].suffix;
@@ -25,15 +25,35 @@ class Solution {
                 }
             }
             lcp[i] = currLCP;
+        }*/
+        int[] lcp = new int[n];
+        int[] rank = new int[n];
+        for (int i = 0; i < n; i++) {
+            rank[sa[i]] = i;
+        }
+
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            if (rank[i] == n - 1) {
+                k = 0;
+                continue;
+            }
+            int j = sa[rank[i] + 1];
+            while (i + k < n && j + k < n && s.charAt(i + k) == s.charAt(j + k)) {
+                k++;
+            }
+            lcp[rank[i]] = k;
+            k = Math.max(k - 1, 0);
         }
         return (n * (n + 1) / 2) - Arrays.stream(lcp).sum();
     }
-    
-    class Suffix implements Comparable<Suffix>{
+
+    class Suffix implements Comparable<Suffix> {
         final int orgIdx;
         final String suffix;
         final int len;
-        public Suffix(String suffix, int orgIdx){
+
+        public Suffix(String suffix, int orgIdx) {
             this.len = suffix.length();
             this.orgIdx = orgIdx;
             this.suffix = suffix;
