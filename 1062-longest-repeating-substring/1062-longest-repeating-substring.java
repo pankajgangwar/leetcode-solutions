@@ -216,7 +216,8 @@ class Solution {
             sa[i] = suffixArray[i].orgIdx;
         }
 
-        int[] lcp = constructLcpUsingKasai(n, s, sa);
+        //int[] lcp = constructLcpUsingKasai(n, s, sa);
+        int[] lcp = constructLcpNaive(n, suffixArray);
         int maxLen = 0;
         for (int i = 0; i < n; i++) {
             maxLen = Math.max(maxLen, lcp[i]);
