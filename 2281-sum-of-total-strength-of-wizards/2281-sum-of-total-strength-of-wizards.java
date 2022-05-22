@@ -39,7 +39,7 @@ class Solution {
             int r = right[i];
             long lSum = prefpref[i] - prefpref[Math.max(l, 0)];
             long rSum = prefpref[r] - prefpref[i];
-            res = (res + strength[i]*(rSum*(i-l) % mod - lSum*(r-i)%mod)) % mod;
+            res = (res + strength[i] * (rSum * (i-l) % mod - lSum *(r - i) % mod)) % mod;
         }
         return (int)(res + mod) % mod;
     }
