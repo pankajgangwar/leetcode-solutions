@@ -21,11 +21,11 @@ class Solution {
             }
         }
         int res = 0;
-        res = arrayToBinary(grid);
+        res = findScore(grid);
         return res;
     }
 
-    private int arrayToBinary(int[][] matrix) {
+    private int findScore(int[][] matrix) {
         int score = 0;
         for (int i = 0; i < matrix.length; i++) {
             int binary = 0;
