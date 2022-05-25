@@ -21,21 +21,13 @@ class Solution {
             }
         }
         int res = 0;
-        res = findScore(grid);
-        return res;
-    }
-
-    private int findScore(int[][] matrix) {
-        int score = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            int binary = 0;
-            int n = matrix[i].length;
-            for (int j = 0; j < matrix[i].length; j++) {
-                binary += matrix[i][j] * (Math.pow(2, n - 1 - j));
+        for (int i = 0; i < grid.length; i++) {
+            int n = grid[i].length;
+            for (int j = 0; j < n; j++) {
+               res += (grid[i][j] * (1 << n - j - 1));
             }
-            score += binary;
         }
-        return score;
+        return res;
     }
 
     private void flipCol(int col, int[][] matrix) {
