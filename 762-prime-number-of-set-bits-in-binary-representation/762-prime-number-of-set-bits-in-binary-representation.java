@@ -2,9 +2,12 @@ class Solution {
     public int countPrimeSetBits(int left, int right) {
         int count = 0;
         int[] arr = new int[]{2, 3, 5, 7, 11, 13, 17, 19};
+        HashSet<Integer> set = new HashSet<>();
+        for(int a : arr) set.add(a);
+        
         for(int i = left; i <= right; i++){
             int bits = Integer.bitCount(i);
-            if(Arrays.binarySearch(arr, bits) >= 0){
+            if(set.contains(bits)){
                 count += 1;
             }
         }
