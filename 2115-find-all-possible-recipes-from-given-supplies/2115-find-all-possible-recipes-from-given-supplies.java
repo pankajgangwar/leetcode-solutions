@@ -41,6 +41,22 @@ class Solution {
         }
         return res;
     }
+    
+    public List<String> dfs(String[] recipes, List<List<String>> ingredients, String[] supplies){
+        HashSet<String> sup = new HashSet<>(Arrays.asList(supplies));
+        HashMap<String, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < recipes.length; i++) {
+            indexMap.put(recipes[i], i);
+        }
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < recipes.length; i++) {
+            String r = recipes[i];
+            if(helper(r, indexMap, ingredients, sup)){
+                res.add(r);
+            }
+        }
+        return res;
+    }
 
     HashMap<String,Boolean> visited = new HashMap<>();
     public boolean helper(String r, HashMap<String, Integer> indexMap,
