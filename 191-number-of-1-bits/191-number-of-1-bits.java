@@ -3,7 +3,7 @@ public class Solution {
     public int hammingWeight(int n) {
         int res = 0;
         for(int i = 1; i <= 32; i++){
-            res += (n >>> i) & 1;
+            res += (n >> i) & 1;
         }
         /*while(n != 0){
             res += (n & 1);
