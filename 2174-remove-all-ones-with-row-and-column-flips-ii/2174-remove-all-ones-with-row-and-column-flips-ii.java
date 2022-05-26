@@ -22,6 +22,7 @@ class Solution {
                     }
                 }
                 res = Math.min(res , 1 + (removeOnes(grid)));
+                //Backtrack
                 for (int k : x) {
                     grid[k][j] = 1;
                 }
