@@ -32,8 +32,7 @@ class Solution {
         while (!bfs.isEmpty()){
             String curr = bfs.poll();
             res.add(curr);
-            if(!graph.containsKey(curr)) continue;
-            for(String dep : graph.get(curr)){
+            for(String dep : graph.getOrDefault(curr, new ArrayList<>())){
                 indegree.put(dep, indegree.get(dep) - 1);
                 if(indegree.get(dep) == 0){
                     bfs.offer(dep);
