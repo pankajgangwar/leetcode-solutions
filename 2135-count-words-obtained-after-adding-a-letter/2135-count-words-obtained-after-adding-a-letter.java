@@ -4,17 +4,18 @@ class Solution {
         Trie[] children = new Trie[26];
         boolean isEnd = false;
 
-        public void insert(Trie root, String s) {
-            Trie curr = root;
-            for (int i = 0; i < s.length(); i++) {
-                int ch = s.charAt(i) - 'a';
-                if (curr.children[ch] == null) {
-                    curr.children[ch] = new Trie();
-                }
-                curr = curr.children[ch];
+        public void insert(String s, int idx) {
+            if(idx == s.length()){
+                isEnd = true;
+                return;
             }
-            curr.isEnd = true;
+            int ch = s.charAt(idx) - 'a';
+            if(children[ch] == null){
+                children[ch] = new Trie();
+            }
+            children[ch].insert(s, idx + 1);
         }
+
 
         public boolean find(String s, int index, boolean skipped) {
             if(index == s.length()) return (skipped && isEnd);
@@ -31,7 +32,7 @@ class Solution {
             String ss = s[i];
             char[] charArray = ss.toCharArray();
             Arrays.sort(charArray);
-            root.insert(root, new String(charArray));
+            root.insert(new String(charArray), 0);
         }
 
         int res = 0;
