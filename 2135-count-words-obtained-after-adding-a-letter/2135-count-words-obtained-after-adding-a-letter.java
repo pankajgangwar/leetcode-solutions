@@ -8,8 +8,8 @@ class Solution {
         }
         int res = 0;
         for(String s : targetWords) {
-            StringBuilder a = new StringBuilder(s);
             for(int i = 0; i < s.length(); i++){
+                StringBuilder a = new StringBuilder(s);
                 a.deleteCharAt(i);
                 char[] arr = (a.toString()).toCharArray();
                 Arrays.sort(arr);
@@ -18,7 +18,6 @@ class Solution {
                     res += 1;
                     break;
                 }
-                a.insert(i, s.charAt(i));
             }
         }
         return res;
