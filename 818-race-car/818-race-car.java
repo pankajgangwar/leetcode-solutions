@@ -1,9 +1,28 @@
 class Solution {
     
      public int racecar(int t) {
-         return racecarDp(t);
-         
+         return racecarBfs1(t);
      }
+    
+    public int racecarBfs1(int target) {
+        Queue<int[]> bfs = new LinkedList<>();
+        int[] start = new int[]{0,0,1,};
+        bfs.offer(start); // pos, speed
+        while (!bfs.isEmpty()){
+            int[] curr = bfs.poll();
+            int moves = curr[0];
+            int pos = curr[1];
+            int vel = curr[2];
+            if(pos == target) return moves;
+            if(Math.abs(pos) > 2 * target) continue;
+            bfs.offer(new int[]{moves + 1, pos + vel, vel * 2});
+            if(((pos + vel) > target && vel > 0) || (pos + vel < target && vel < 0)){
+                bfs.offer(new int[]{moves+1, pos, vel > 0 ? -1 : 1});
+            }
+        }
+        return 0;
+    }
+    
     int dp[] = new int[10001];
     public int racecarDp(int t) {
         if(dp[t] > 0) return dp[t];
