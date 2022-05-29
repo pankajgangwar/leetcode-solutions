@@ -51,16 +51,24 @@ class Solution {
                 int[] curr = bfs.poll();
                 if(curr[0] == target) return level;
                 if(Math.abs(curr[0]) > 2 * target) continue;
-                int[] op1 = new int[]{curr[0] + curr[1], curr[1] * 2};
-                int[] op2 = new int[]{curr[0], curr[1] > 0 ? -1 : 1};
-                if(Math.abs(op1[0] - target) < target && !visited.contains(Arrays.toString(op1))){
-                    visited.add(Arrays.toString(op1));
-                    bfs.offer(op1);
+                int pos = curr[0];
+                int vel = curr[1];
+                int[] opt1 = new int[]{curr[0] + curr[1], curr[1] * 2};
+                int[] opt2 = new int[]{curr[0], curr[1] > 0 ? -1 : 1};
+                if(Math.abs(opt1[0] - target) < target && !visited.contains(Arrays.toString(opt1))){
+                    visited.add(Arrays.toString(opt1));
+                    bfs.offer(opt1);
                 }
-                if(Math.abs(op2[0] - target) < target && !visited.contains(Arrays.toString(op2))){
-                    visited.add(Arrays.toString(op2));
-                    bfs.offer(op2);
+                if(((pos + vel) > target && vel > 0) || (pos + vel < target && vel < 0)){
+                    if(!visited.contains(Arrays.toString(opt2))){
+                        visited.add(Arrays.toString(opt2));
+                        bfs.offer(opt2);
+                    }
                 }
+                /*if(Math.abs(opt2[0] - target) < target && !visited.contains(Arrays.toString(opt2))){
+                    visited.add(Arrays.toString(opt2));
+                    bfs.offer(opt2);
+                }*/
             }
             level += 1;
         }
