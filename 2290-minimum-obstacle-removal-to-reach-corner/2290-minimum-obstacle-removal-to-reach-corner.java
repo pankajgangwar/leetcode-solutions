@@ -6,10 +6,6 @@ class Solution {
         int n = grid[0].length;
         bfs.offer(new int[]{0,0,0});
         boolean[][] vis = new boolean[m][n];
-        int[][] min = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            Arrays.fill(min[i], Integer.MAX_VALUE);
-        }
         
         vis[0][0] = true;
         while (!bfs.isEmpty()){
