@@ -1,6 +1,6 @@
 class Solution {
     /*
-    * Monotone increasing stack
+    * Monotonic increasing stack
     * */
     public int totalSteps(int[] nums) {
         Stack<int[]> st = new Stack<>();
