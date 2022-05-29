@@ -6,23 +6,22 @@ class Solution {
         int n = grid[0].length;
         bfs.offer(new int[]{0,0,0});
         boolean[][] vis = new boolean[m][n];
-        
+
         vis[0][0] = true;
         while (!bfs.isEmpty()){
             int size = bfs.size();
             while (size-- > 0){
                 int[] curr = bfs.poll();
                 int x = curr[0], y = curr[1];
-                int xx = curr[2];
-                if(x == m -1 && y == n - 1) return xx;
-                    
+                int minFlips = curr[2];
+                if(x == m -1 && y == n - 1) return minFlips;
                 for(int[] d : dirs){
                     int next_x = d[0] + x;
                     int next_y = d[1] + y;
                     if(isSafeMove(next_x, next_y, vis, m, n)){
                         int obst = grid[next_x][next_y];
                         vis[next_x][next_y] = true;
-                        bfs.offer(new int[]{next_x, next_y, xx + obst});
+                        bfs.offer(new int[]{next_x, next_y, minFlips + obst});
                     }
                 }
             }
