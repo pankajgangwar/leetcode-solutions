@@ -59,16 +59,11 @@ class Solution {
                     visited.add(Arrays.toString(opt1));
                     bfs.offer(opt1);
                 }
-                if(((pos + vel) > target && vel > 0) || (pos + vel < target && vel < 0)){
-                    if(!visited.contains(Arrays.toString(opt2))){
-                        visited.add(Arrays.toString(opt2));
-                        bfs.offer(opt2);
-                    }
-                }
-                /*if(Math.abs(opt2[0] - target) < target && !visited.contains(Arrays.toString(opt2))){
+                
+                if(Math.abs(opt2[0] - target) < target && !visited.contains(Arrays.toString(opt2))){
                     visited.add(Arrays.toString(opt2));
                     bfs.offer(opt2);
-                }*/
+                }
             }
             level += 1;
         }
