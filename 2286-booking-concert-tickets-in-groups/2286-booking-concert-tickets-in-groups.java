@@ -1,4 +1,4 @@
-  class BIT {
+ class BIT {
         int size;
         long[] tree;
 
@@ -39,9 +39,9 @@
             return Integer.lowestOneBit(i);
         }
 
-  }
+    }
 
- class SegmentTree {
+    class SegmentTree {
         long[] segTree;
         public SegmentTree(int n){
             segTree = new long[4*n+5];
@@ -52,15 +52,15 @@
                 return;
             }
             int mid = (low + high)/2;
-            if(idx >= low && idx <= mid) update(value, low, mid, idx, 2*pos + 0);
+            if(idx >= low && idx <= mid) update(value, low, mid, idx, 2*pos);
             if(idx >= (mid+1) && idx <= high) update(value, mid + 1, high, idx, 2*pos + 1);
-            segTree[pos] = Math.min(segTree[2*pos + 0], segTree[2*pos + 1]);
+            segTree[pos] = Math.min(segTree[2*pos], segTree[2*pos + 1]);
         }
         public long rangeMinQuery(int qLow, int qHigh, int low, int high, int pos){
             if(low >= qLow && high <= qHigh) return segTree[pos];
             if(high < qLow || low > qHigh) return Long.MAX_VALUE;
             int mid = (low + high) / 2;
-            long q1 = rangeMinQuery(qLow, qHigh, low, mid, 2*pos + 0);
+            long q1 = rangeMinQuery(qLow, qHigh, low, mid, 2*pos);
             long q2 = rangeMinQuery(qLow, qHigh, mid + 1, high, 2*pos + 1);
             return Math.min(q1, q2);
         }
