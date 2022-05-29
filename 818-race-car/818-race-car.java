@@ -1,7 +1,7 @@
 class Solution {
     
      public int racecar(int t) {
-         return racecarBfs1(t);
+         return racecarBfs(t);
      }
     
     public int racecarBfs1(int target) {
@@ -50,6 +50,7 @@ class Solution {
             while (size-- > 0){
                 int[] curr = bfs.poll();
                 if(curr[0] == target) return level;
+                if(Math.abs(curr[0]) > 2 * target) continue;
                 int[] op1 = new int[]{curr[0] + curr[1], curr[1] * 2};
                 int[] op2 = new int[]{curr[0], curr[1] > 0 ? -1 : 1};
                 if(Math.abs(op1[0] - target) < target && !visited.contains(Arrays.toString(op1))){
