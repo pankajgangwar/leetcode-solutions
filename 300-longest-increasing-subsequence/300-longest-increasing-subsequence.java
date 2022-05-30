@@ -18,7 +18,7 @@ class Solution {
     }
     
     public int lengthOfLIS(int[] nums) {
-        return lengthOfLISPatienceSort(nums);
+        return lengthOfLISDP(nums);
     }
     
     
