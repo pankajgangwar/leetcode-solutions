@@ -1,4 +1,9 @@
 class Solution {
+    
+    /*
+     Max flow - Ford-Fulkerson | Network Flow
+     Maximum Bipartite matching
+    */
 
     public int maximumInvitations(int[][] grid) {
         int boys = grid.length;
@@ -14,6 +19,7 @@ class Solution {
         return invitations;
     }
 
+    
     public boolean match(int boy, HashSet<Integer> seenGirl, int[][] grid, int[] girlFixed) {
         int m = grid.length; // boys
         int n = grid[0].length; // girls
@@ -25,7 +31,6 @@ class Solution {
                     girlFixed[g] = boy;
                     return true;
                 }
-                //seenGirl.remove(g);
             }
         }
         return false;
