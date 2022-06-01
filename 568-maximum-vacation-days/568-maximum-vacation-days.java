@@ -1,30 +1,22 @@
 class Solution {
     public int maxVacationDays(int[][] flights, int[][] days) {
-        int N = flights.length;
-        int K = days[0].length;
-        int[] dp = new int[N];
+        int n = flights.length;
+        int weeks = days[0].length;
+        int[] dp = new int[n];
         Arrays.fill(dp, Integer.MIN_VALUE);
         dp[0] = 0;
-        
-        for (int i = 0; i < K; i++) {
-            int[] temp = new int[N];
+        for (int w = 0; w < weeks; w++) {
+            int[] temp = new int[n];
             Arrays.fill(temp, Integer.MIN_VALUE);
-            for (int j = 0; j < N; j++) {
-                for(int k = 0; k < N; k++) {
-                    if (j == k || flights[k][j] == 1) {
-                        temp[j] = Math.max(temp[j], dp[k] + days[j][i]);
+            for (int cityi = 0; cityi < n; cityi++) {
+                for (int cityj = 0; cityj < n; cityj++) {
+                    if( cityi == cityj || flights[cityj][cityi] == 1){
+                        temp[cityi] = Math.max(temp[cityi], dp[cityj] + days[cityi][w]);
                     }
                 }
             }
             dp = temp;
         }
-        
-        int max = 0;
-        for (int v : dp) {
-            max = Math.max(max, v);
-        }
-        
-        return max;
-
+        return Arrays.stream(dp).max().getAsInt();
     }
 }
