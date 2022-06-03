@@ -16,9 +16,10 @@ class Solution {
         int high = peak;
         while (low <= high){
             int mid = ( low + high )/ 2;
-            if(A.get(mid) == target){
+            int m = A.get(mid);
+            if(m == target){
                 return mid;
-            }else if(A.get(mid) > target){
+            }else if(m > target){
                 high = mid - 1;
             }else{
                 low = mid + 1;
@@ -28,9 +29,10 @@ class Solution {
         high = n - 1;
         while (low <= high){
             int mid = ( low + high )/ 2;
-            if(A.get(mid) == target){
+            int m = A.get(mid);
+            if(m == target){
                 return mid;
-            }else if(A.get(mid) > target){
+            }else if(m > target){
                 low = mid + 1;
             }else{
                 low = mid + 1;
