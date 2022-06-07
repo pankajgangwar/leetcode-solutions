@@ -32,10 +32,19 @@ class Solution {
 			for(j = cols; j >= 0; j-- )
 				if(board[rows][j] == 1)
 					return false;
+            for(j = cols; j < N; j++ )
+				if(board[rows][j] == 1)
+					return false;
 			for(i = rows, j = cols; i >= 0 && j >= 0; i--, j-- )
 				if(board[i][j] == 1)
 					return false;
+            for(i = rows, j = cols; i >= 0 && j < N; i--, j++ )
+				if(board[i][j] == 1)
+					return false;
 			for(i = rows, j = cols; i < N && j >= 0; i++, j-- )
+				if(board[i][j] == 1)
+					return false;
+            for(i = rows, j = cols; i < N && j < N; i++, j++ )
 				if(board[i][j] == 1)
 					return false;
 			return true;
