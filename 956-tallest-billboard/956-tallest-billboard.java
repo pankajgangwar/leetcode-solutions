@@ -9,27 +9,20 @@ class Solution {
     
     public int dpSol(int[] rods){
         int n = rods.length;
-        int maxSum = 10000;
-        boolean[][] dp = new boolean[n+1][maxSum+1];
-        int[][]max = new int[n+1][maxSum+1];
-        dp[0][maxSum / 2] = true;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j <= maxSum; j++) {
-                if(j - rods[i] >= 0 && dp[i][j-rods[i]]){
-                    dp[i+1][j] = true;
-                    max[i+1][j] = Math.max(max[i+1][j], max[i][j-rods[i]] + rods[i]);
-                }
-                if(j + rods[i] <= maxSum && dp[i][j + rods[i]]){
-                    dp[i+1][j] = true;
-                    max[i+1][j] = Math.max(max[i+1][j], max[i][j+rods[i]]);
-                }
-                if(dp[i][j]){
-                    dp[i+1][j] = true;
-                    max[i+1][j] = Math.max(max[i+1][j], max[i][j]);
-                }
+        int total = Arrays.stream(rods).sum();
+        int[]dp = new int[total+1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int rod : rods) {
+            int[] current = dp.clone();
+            for (int sum = 0; sum <= total - rod; sum++) {
+                if(current[sum] < 0) continue;
+                dp[sum+rod] = Math.max(dp[sum+rod], current[sum]);
+                int a = Math.abs(sum - rod);
+                dp[a] = Math.max(dp[a], current[sum] + Math.min(sum, rod));
             }
         }
-        return max[n][maxSum / 2];
+        return dp[0];
     }
 
     int globalMax = 0;
