@@ -24,8 +24,7 @@ class TextEditor {
         }
 
         public String cursorLeft(int k) {
-            int end = Math.min(cursorPos, k);
-            cursorPos -= end;
+            cursorPos = Math.max(0, cursorPos - k);
             int start = Math.min(10, cursorPos);
             return out.substring(cursorPos - start, cursorPos);
         }
