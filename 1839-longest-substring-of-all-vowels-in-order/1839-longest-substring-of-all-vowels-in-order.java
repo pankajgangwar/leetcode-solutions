@@ -1,39 +1,17 @@
 class Solution {
     public int longestBeautifulSubstring(String word) {
         int max = 0;
-        int start = 0;
-        int end = 0;
         int n = word.length();
-        while (end < n) {
-            while (start < n && word.charAt(start) != 'a') start++;
-            end = start;
-            while (end < n && word.charAt(end) == 'a') end++;
-            if (end == n) break;
-            if (word.charAt(end) != 'e') {
+        HashSet<Character> seen = new HashSet<>();
+        for (int end = 0, start = 0; end < n; end++) {
+            if(end > 0 && word.charAt(end - 1) > word.charAt(end)){
+                seen = new HashSet<>();
                 start = end;
-                continue;
             }
-            while (end < n && word.charAt(end) == 'e') end++;
-            if (end == n) break;
-            if (word.charAt(end) != 'i') {
-                start = end;
-                continue;
+            seen.add(word.charAt(end));
+            if(seen.size() == 5){
+                max = Math.max(max, end - start + 1);
             }
-            while (end < n && word.charAt(end) == 'i') end++;
-            if (end == n) break;
-            if (word.charAt(end) != 'o') {
-                start = end;
-                continue;
-            }
-            while (end < n && word.charAt(end) == 'o') end++;
-            if (end == n) break;
-            if (word.charAt(end) != 'u') {
-                start = end;
-                continue;
-            }
-            while (end < n && word.charAt(end) == 'u') end++;
-            max = Math.max(max, end - start);
-            start = end;
         }
         return max;
     }
