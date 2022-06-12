@@ -7,7 +7,6 @@ class Solution {
     int res = Integer.MAX_VALUE;
     public void helper(int[] cookies, int start, int k, int[] students){
         if(start == cookies.length) {
-            //int max = Arrays.stream(students).max().getAsInt();
             int max = 0;
             for(int a : students) max = Math.max(max, a);
             res = Math.min(res, max);
