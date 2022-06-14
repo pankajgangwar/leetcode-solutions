@@ -8,9 +8,9 @@ class Element{
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        //return usingHeaps(nums, k);
+        return usingHeaps(nums, k);
         //return usingBucketSort(nums, k);
-        return usingTreeMap(nums, k);
+        //return usingTreeMap(nums, k);
     }
     
     public int[] usingTreeMap(int[] nums, int k){
@@ -73,54 +73,27 @@ class Solution {
 		return res;
 	}
     
-    public List<Integer> usingHeaps(int[] nums, int k){
+    public int[] usingHeaps(int[] nums, int k){
         Map<Integer, Integer> mMap = new HashMap<>();
-    	
-    	PriorityQueue<Element> mMinHeap = new PriorityQueue<>(new Comparator<Element>(){
-            @Override
- 			public int compare(Element e1, Element e2) {
- 				// TODO Auto-generated method stub
- 				if(e1.frequency > e2.frequency) {
- 					return 1;
- 				}
- 				else if(e1.frequency < e2.frequency) {
- 					return -1;
- 				}
- 				return 0;
- 			} 
-         });
-        
-    	for(int i = 0; i < nums.length; i++ ){
-            int thisElement = nums[i];
-            if(mMap.get(thisElement) == null) {
-            	mMap.put(thisElement,1);
-            }else {
-            	int frequencyForThis = mMap.get(thisElement); 
-                mMap.put(thisElement, frequencyForThis+1);
+        PriorityQueue<Element> mMinHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a.frequency));
+        for(int i = 0; i < nums.length; i++ ){
+            int ele = nums[i];
+            mMap.put(ele, mMap.getOrDefault(ele, 0) + 1);
+        }
+        for(Integer entry : mMap.keySet()) {
+            Element ele = new Element(entry);
+            ele.frequency = mMap.get(entry);
+            mMinHeap.offer(ele);
+            while(mMinHeap.size() > k) {
+                mMinHeap.poll();
             }
         }
-    	
-    	
-    	for(Integer entry : mMap.keySet()) {
-    		Element ele = new Element(entry);
-    		ele.frequency = mMap.get(entry);
-    		
-    		System.out.println("Adding: " + ele.val + " freq: " + ele.frequency);
-    		mMinHeap.offer(ele);
-    		
-    		while(mMinHeap.size() > k) {
-    			Element removed = mMinHeap.poll();
-    			System.out.println("Removing: " + removed.val + " freq: " + removed.frequency);
-    		}
-    	}
-    	
-    	List<Integer> mList = new ArrayList<>();
-    	while(!mMinHeap.isEmpty()) {
-    		Element element = mMinHeap.poll();
-    		mList.add(element.val);
-    	}
-        Collections.reverse(mList);
-    	return mList;
+        List<Integer> res = new ArrayList<>();
+        while(!mMinHeap.isEmpty()) {
+            res.add(mMinHeap.poll().val);
+        }
+        Collections.reverse(res);
+        return res.stream().mapToInt(i -> i).toArray();
     }
     
 }
