@@ -19,7 +19,8 @@ class Solution {
         }else if(i == first && j == second){
             min_r = Math.min(min_r, round);
             max_r = Math.max(max_r, round);
-        }else{
+        }else if(!visited[l][m][r]){
+            visited[l][m][r] = true;
             if(i != first && i != second){
                 helperMemo(mask ^ (1<<i), round, i+1,
                         j-1, first, second,
