@@ -19,9 +19,9 @@ class Solution {
                         duplicates++;
                     }
                 }
-                res += ((a.size() - duplicates) * (b.size() - duplicates));
+                res += (2 * (a.size() - duplicates) * (b.size() - duplicates));
             }
         }
-        return res * 2;
+        return res;
     }
 }
