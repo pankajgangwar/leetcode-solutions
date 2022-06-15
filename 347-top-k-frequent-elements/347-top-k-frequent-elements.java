@@ -15,31 +15,33 @@ class Solution {
     
     public int[] usingTreeMap(int[] nums, int k){
     	Map<Integer, Integer> map = new HashMap<>();
-
-    	for (int n : nums){
-    		map.put(n , map.getOrDefault(n, 0) + 1);
-		}
-
-    	Set<Integer> keys = map.keySet();
-		TreeMap<Integer, List<Integer>> treeMap = new TreeMap<>(Collections.reverseOrder());
-    	
+        for (int n : nums){
+            map.put(n , map.getOrDefault(n, 0) + 1);
+        }
+        Set<Integer> keys = map.keySet();
+        TreeMap<Integer, List<Integer>> treeMap = new TreeMap<>(Collections.reverseOrder());
         for(int ele : keys){
-    		int freq = map.get(ele);
+            int freq = map.get(ele);
             treeMap.putIfAbsent(freq, new ArrayList<>());
             treeMap.get(freq).add(ele);
-		}
-        
-        int[] res = new int[k];
-        int idx = 0;
-    	Set<Integer> treeKey = treeMap.keySet();
-    	Iterator<Integer> it = treeKey.iterator();
-    	while (it.hasNext() && idx < k){
-			List<Integer> curr = treeMap.get(it.next());
-            for(int ele : curr){
-                res[idx++] = ele;
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        while(k > 0){
+            Map.Entry<Integer, List<Integer>> e = treeMap.pollFirstEntry();
+            List<Integer> list = e.getValue();
+            if(list.size() >= k){
+                for (int i = 0; i < k; i++) {
+                    ans.add(list.get(i));
+                }
+                k = 0;
+            }else{
+                for (int i = 0; i < list.size(); i++,k--) {
+                    ans.add(list.get(i));
+                }
             }
-		}
-    	return res;
+        }
+        return ans.stream().mapToInt(i -> i).toArray();
 	}
     
      public int[] usingBucketSort(int[] nums, int k){
