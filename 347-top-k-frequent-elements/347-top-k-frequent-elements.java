@@ -8,9 +8,9 @@ class Element{
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        return usingHeaps(nums, k);
+        //return usingHeaps(nums, k);
         //return usingBucketSort(nums, k);
-        //return usingTreeMap(nums, k);
+        return usingTreeMap(nums, k);
     }
     
     public int[] usingTreeMap(int[] nums, int k){
