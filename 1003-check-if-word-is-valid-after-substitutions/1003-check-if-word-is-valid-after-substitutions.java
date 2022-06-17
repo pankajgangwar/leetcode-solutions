@@ -1,17 +1,14 @@
 class Solution {
-    public boolean isValid(String S) {
-        String t = "abc";
-        
-        if(S.equals(t)|| S.length() == 0) return true;
-        
-        int idx = S.indexOf(t);
-        if(idx < 0){
-            return false;
+    public boolean isValid(String s) {
+        Stack<Character> st = new Stack<>();
+        for(char ch : s.toCharArray()){
+            if(ch == 'c'){
+                if(st.isEmpty() || st.pop() != 'b') return false;
+                if(st.isEmpty() || st.pop() != 'a') return false;
+            }else{
+                st.push(ch);
+            }
         }
-        StringBuilder builder = new StringBuilder(S);
-        builder.delete(idx, idx + t.length());
-        
-        return isValid(builder.toString());
-        
+        return st.isEmpty();
     }
 }
