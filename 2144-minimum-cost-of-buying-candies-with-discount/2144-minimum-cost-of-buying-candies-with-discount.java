@@ -2,18 +2,12 @@ class Solution {
     public int minimumCost(int[] cost) {
         Arrays.sort(cost);
         int n = cost.length;
-        if(n == 2) return cost[0] + cost[1];
-        if(n == 1) return cost[0];
-        int ans = 0;
-        for (int i = n-1; i >= 0;) {
-           if(i-2 < 0){
-               if(i == 1) ans += cost[0] + cost[1];
-               else if(i == 0) ans += cost[0];
-           }else{
-               ans += (cost[i] + cost[i-1]);
-           }
-           i -= 3;
+        int res = 0;
+        for(int i = 0; i < n; i++){
+            if(i % 3 != n % 3){
+                res += cost[i];
+            }
         }
-        return ans;
+        return res;
     }
 }
