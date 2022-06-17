@@ -15,6 +15,16 @@ class Solution {
         return remove(sb, a, x) + remove(sb, b, y);
     }
 
+    public int getScore(StringBuilder s, String p, int x) {
+        int i = 0, res = 0;
+        while (s.indexOf(p) >= 0){
+            int idx = s.indexOf(p);
+            s.delete(idx, idx + p.length());
+            res += x;
+        }
+        return res;
+    }
+
     public int remove(StringBuilder s, String p, int x) {
         int i = 0, res = 0;
         for(int j = 0; j < s.length(); j++){
