@@ -1,5 +1,26 @@
 class Solution {
+    
     public int[] maximumBeauty(int[][] items, int[] queries) {
+        Arrays.sort(items, Comparator.comparingInt(a -> a[0]));
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        int maxBeauty = 0;
+        for (int i = 0; i < items.length; i++) {
+            int price = items[i][0];
+            int beauty = items[i][1];
+            maxBeauty = Math.max(maxBeauty, beauty);
+            map.put(price, maxBeauty);
+        }
+        int[] ans = new int[queries.length];
+        for (int i = 0; i < queries.length ; i++) {
+            Integer beauty = map.floorKey(queries[i]);
+            if(beauty != null){
+                ans[i] = map.get(beauty);
+            }
+        }
+        return ans;
+    }
+    
+    public int[] maximumBeauty1(int[][] items, int[] queries) {
         Arrays.sort(items, Comparator.comparingInt(a -> a[0]));
         for (int i = 1; i < items.length; i++) {
             items[i][1] = Math.max(items[i][1], items[i-1][1]);
