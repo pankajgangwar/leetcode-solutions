@@ -2,13 +2,12 @@ class Solution {
     public long mostPoints(int[][] q) {
         int n = q.length;
         dp = new long[n+1];
-        //return dfs(0, q);
-        return dpSol(q);
+        return dfs(0, q);
+        //return dpSol(q);
     }
     
     public long dpSol(int[][] q){
         int n = q.length;
-        //dp[1] = (long)q[0][0];
         for (int i = n - 1; i >= 0; i--) {
             int skip = q[i][1];
             int points = q[i][0];
