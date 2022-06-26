@@ -1,5 +1,6 @@
 class Solution {
     
+    // https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/arrange_buildings/topic
     public int countHousePlacements(int n) {
         long mod = (long)1e9+7;
         long[] dp = new long[n+10];
