@@ -1,8 +1,8 @@
 class Solution {
     
     public int findMaximumXOR(int[] nums) {
-        return findMaximumXORUsingTrie(nums);
-        //return findMaximumXORUsingSets(nums);
+       // return findMaximumXORUsingTrie(nums);
+        return findMaximumXORUsingSets(nums);
     }
     
     class TrieNode {
