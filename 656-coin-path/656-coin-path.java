@@ -33,11 +33,7 @@ class Solution {
                 }
             }
         }
-        if(minCost == Integer.MAX_VALUE){
-            dp[start] = minCost;
-        }else{
-            dp[start] = coins[start] + minCost;
-        }
+        dp[start] = coins[start] + minCost;
         next[start] = minIdx;
         return dp[start];
     }
