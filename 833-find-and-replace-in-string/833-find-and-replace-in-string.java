@@ -18,18 +18,16 @@ class Solution {
             arr[i] = new Triplet(indices[i], sources[i], targets[i]);
         }
         
-        Arrays.sort(arr, (a,b) -> a.index - b.index);
+        Arrays.sort(arr, (a,b) -> -a.index + b.index);
         
-        int delta = 0;
         for (int i = 0; i < n; i++) {
             int idx = arr[i].index;
             String src = arr[i].src;
-            String sub = s.substring(delta + idx);
+            String sub = s.substring(idx);
             if (sub.startsWith(src)) {
                 String tar = arr[i].tar;
-                String first = s.substring(0, delta + idx);
-                String last = s.substring(delta + idx + src.length());
-                delta += tar.length() - src.length();
+                String first = s.substring(0, idx);
+                String last = s.substring(idx + src.length());
                 s = first + tar + last;
             }
         }
