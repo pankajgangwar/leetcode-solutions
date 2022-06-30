@@ -1,7 +1,7 @@
 class Solution {
     public int minimumEffortPath(int[][] matrix) {
-        return minimumEffortPathDijikstra(matrix);
-        //return minimumEffortPathBinarySearch(matrix);
+        //return minimumEffortPathDijikstra(matrix);
+        return minimumEffortPathBinarySearch(matrix);
     }
     
     public int minimumEffortPathDijikstra(int[][] matrix) {
@@ -44,7 +44,7 @@ class Solution {
         int low = 0, high = 1000_000;
         while (low < high){
             int mid = low + ((high - low) / 2);
-            if(helper(mid, matrix)){
+            if(search(mid, matrix)){
                 high = mid;
             }else{
                 low = mid + 1;
@@ -53,7 +53,7 @@ class Solution {
         return low;
     }
 
-    public boolean helper(int minEffort, int[][] matrix){
+    public boolean search(int maxEffortAllowed, int[][] matrix){
         int[][] dirs = new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
         int m = matrix.length;
         int n = matrix[0].length;
@@ -72,7 +72,7 @@ class Solution {
                     int next_x = d[0] + curr[0];
                     int next_y = d[1] + curr[1];
                     if(next_x >= 0 && next_x < m && next_y >= 0 & next_y < n && !visited[next_x][next_y]){
-                        if(Math.abs(matrix[curr[0]][curr[1]] - matrix[next_x][next_y]) <= minEffort){
+                        if(Math.abs(matrix[curr[0]][curr[1]] - matrix[next_x][next_y]) <= maxEffortAllowed){
                             queue.offer(new int[]{next_x, next_y});
                             visited[next_x][next_y] = true;
                         }
@@ -82,4 +82,5 @@ class Solution {
         }
         return false;
     }
+
 }
