@@ -1,5 +1,6 @@
 class Solution {
     // https://cp-algorithms.com/graph/finding-cycle.html
+    // Detect cycle in acyclic - graph using graph coloring algorithm
     public int[] distanceToCycle(int n, int[][] edges) {
         LinkedList<Integer>[] graph = new LinkedList[n];
         for (int i = 0; i < n; i++) {
@@ -16,7 +17,7 @@ class Solution {
         Arrays.fill(parent, -1);
 
         for (int u = 0; u < n; u++) {
-            if(color[u] == 0 && dfs(-1, u, color, parent, graph)){
+            if(color[u] == 0 && findCycle(-1, u, color, parent, graph)){
                 break;
             }
         }
@@ -27,18 +28,18 @@ class Solution {
         }
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
-        bfs(graph, dist, cycle);
+        findShortedDistance(graph, dist, cycle);
         return dist;
     }
 
     int cycle_end = -1, cycle_start = -1;
-    public boolean dfs(int parentNode, int u, int[] color, int[] parent, LinkedList<Integer>[] adj) {
+    public boolean findCycle(int parentNode, int u, int[] color, int[] parent, LinkedList<Integer>[] adj) {
         color[u] = 1;
         for (int v : adj[u]) {
             if(parentNode == v) continue;
             if (color[v] == 0) {
                 parent[v] = u;
-                if (dfs(u, v, color, parent, adj))
+                if (findCycle(u, v, color, parent, adj))
                     return true;
             } else if (color[v] == 1) {
                 cycle_end = u;
@@ -49,10 +50,8 @@ class Solution {
         color[u] = 2;
         return false;
     }
-    
-    
 
-    public void bfs(LinkedList<Integer>[] g, int[] dist, Set<Integer> cycle){
+    public void findShortedDistance(LinkedList<Integer>[] g, int[] dist, Set<Integer> cycle){
         Queue<Integer> q = new LinkedList<>();
         HashSet<Integer> visited = new HashSet<>();
         Iterator<Integer> it = cycle.iterator();
