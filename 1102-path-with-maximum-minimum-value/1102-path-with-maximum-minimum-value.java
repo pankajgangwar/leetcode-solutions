@@ -14,7 +14,7 @@ class Solution {
                 coord.add(new int[]{i,j});
             }
         }
-        Collections.sort(coord, (a,b) -> matrix[b[0]][b[1]] - matrix[a[0]][a[1]]);
+        Collections.sort(coord, (a,b) -> matrix[b[0]][b[1]] - matrix[a[0]][a[1]]); // max to min
         int[][] dirs = new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
         boolean[][] visited = new boolean[rows][cols];
 
