@@ -4,37 +4,38 @@
 			//return checkCourseOrder(graph.getNodes());
 		}
      
-     public boolean ifCanFinish(int numCourses, int[][] prerequisites){
-        int[] indegrees = new int[numCourses];
-        int index = 0;
-        
-        for(int i = 0; i < prerequisites.length; i++){
-            indegrees[prerequisites[i][0]]++;
+      public boolean ifCanFinish(int n, int[][] dep){
+        int[] indegree = new int[n];
+        int count = 0;
+
+        for(int i = 0; i < dep.length; i++){
+            indegree[dep[i][0]]++;
         }
-        
         Queue<Integer> queue = new LinkedList<>();
-        for(int i = 0; i < numCourses; i++){
-            if(indegrees[i] == 0){
-                index++;
+        for(int i = 0; i < n; i++){
+            if(indegree[i] == 0){
+                count++;
                 queue.offer(i);
             }
         }
-        
         while(!queue.isEmpty()){
-            int course = queue.poll();
-             for(int i = 0; i < prerequisites.length; i++){
-                 if(prerequisites[i][1] == course){
-                     indegrees[prerequisites[i][0]]--;
-                     
-                     if(indegrees[prerequisites[i][0]] == 0){
-                         index++;
-                         queue.offer(prerequisites[i][0]);
-                     }
-                 }
-             }
+            int size = queue.size();
+            while (size-- > 0){
+                int course = queue.poll();
+                for(int i = 0; i < dep.length; i++){
+                    if(dep[i][1] == course){
+                        indegree[dep[i][0]]--;
+                        if(indegree[dep[i][0]] == 0){
+                            count++;
+                            queue.offer(dep[i][0]);
+                        }
+                    }
+                }
+            }
         }
-        return numCourses == index;
-     }
+        return n == count;
+    }
+
 
 		public Graph buildGraphOfCourses(int numCourses, int[][] prerequisites) {
 			Graph graph = new Graph();
