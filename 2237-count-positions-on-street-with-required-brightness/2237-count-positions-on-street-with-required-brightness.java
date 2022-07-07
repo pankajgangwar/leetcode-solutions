@@ -1,4 +1,5 @@
 class Solution {
+    //https://leetcode.com/problems/count-positions-on-street-with-required-brightness/discuss/2248655/Java-or-Line-Sweep
     public int meetRequirement(int n, int[][] lights, int[] requirement) {
         int[] pref = new int[n + 1];
         for (int[] l  : lights) {
