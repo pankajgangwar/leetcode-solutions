@@ -1,6 +1,18 @@
 class Solution {
      public int countVowelStrings(int n) {
-        return dfs(n, new ArrayList<Character>());
+        //return dfs(n, new ArrayList<Character>());
+         return dp(n);
+    }
+    
+    public int dp(int n){
+        //dp[n][k] means the number of strings constructed by at most k different characters.
+        int[][] dp = new int[n+1][6];
+        for (int i = 1; i <= n; i++) {
+            for (int k = 1; k <= 5; k++) {
+                dp[i][k] += dp[i][k-1] + (i > 1 ? dp[i-1][k] : 1);
+            }
+        }
+        return dp[n][5];
     }
 
     public int dfs(int n, ArrayList<Character> list){
