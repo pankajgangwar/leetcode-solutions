@@ -1,5 +1,19 @@
 class Solution {
     public long maximumAlternatingSubarraySum(int[] nums) {
+        long lastMinus = Integer.MIN_VALUE;
+        long lastPlus = Integer.MIN_VALUE;
+        long res = Integer.MIN_VALUE;
+        for(int n : nums){
+            long currPlus = Math.max(lastMinus + n , n);
+            long currMinus = lastPlus - n;
+            res = Math.max(res, Math.max(currPlus, currMinus));
+            lastPlus = currPlus;
+            lastMinus = currMinus;
+        }
+        return res;
+    }
+    
+    public long maximumAlternatingSubarraySum1(int[] nums) {
         return Math.max(kadane(nums, 0), kadane(nums, 1));
     }
 
