@@ -1,42 +1,37 @@
 import java.math.BigInteger;
 class Solution {
     public int[] smallestTrimmedNumbers(String[] nums, int[][] queries) {
-    HashSet<Integer> trims = new HashSet<>();
-    for(int[] query : queries) trims.add(query[1]);  // set of all requires trim values to avoid extra work.
-    
-    HashMap<Integer, Node[]> x = new HashMap<>();  // set of arrays assosiated with each trim value.
-    for(int trim : trims){
-        Node[] arr = create(trim, nums);
-        x.put(trim, arr);
+        int k = nums[0].length();
+        int len = nums.length;
+        HashMap<Integer, BigInteger[][]> map = new HashMap<>();
+        for (int i = 1; i <= k ; i++) {
+            map.putIfAbsent(i, new BigInteger[len][2]);
+            for (int j = 0; j < len; j++) {
+                String trim = nums[j].substring(k-i);
+                BigInteger num = new BigInteger(trim);
+                BigInteger[][] r = map.get(i);
+                r[j] = new BigInteger[]{num, new BigInteger(j+"")};
+                map.put(i, r);
+            }
+            BigInteger[][] arr = map.get(i);
+            Arrays.sort(arr, new Comparator<BigInteger[]>() {
+                @Override
+                public int compare(BigInteger[] a, BigInteger[] b) {
+                    int comp = a[0].compareTo(b[0]);
+                    if(comp == 0){
+                        return (a[1].subtract(b[1])).intValue();
+                    }
+                    return comp;
+                }
+            });
+        }
+        int[] res = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            int kthSmallest = queries[i][0];
+            int trimDigit = queries[i][1];
+            BigInteger[][] r = map.get(trimDigit);
+            res[i] = r[kthSmallest-1][1].intValue();
+        }
+        return res;
     }
-    
-    int[] res = new int[queries.length];
-    for(int i=0; i<queries.length; i++)
-        res[i] = x.get(queries[i][1])[queries[i][0]-1].index; // get required value.
-    return res;
-}
-
-Node[] create(int trim, String[] nums){  // returns a sorted array of trimmed values.
-    Node[] arr = new Node[nums.length];
-    int size = nums[0].length();
-    for(int i=0; i<nums.length; i++){
-        String x = nums[i].substring(size-trim, size); // trim to required length
-        int start = 0;
-        while(start!=x.length() && x.charAt(start)==0) start++; // handle leading zeroes
-        x.substring(start, x.length());
-        arr[i] = new Node(i, x);
-    }
-    Arrays.sort(arr, (a, b)-> a.val.length()>b.val.length()? 1 : // sort array according to their value
-        b.val.length()>a.val.length() ?-1 :
-        a.val.compareTo(b.val)
-    );
-    return arr;
-}
-
-class Node{
-    int index; String val;  // custom object to store both index and value.
-    Node(int i, String v){
-        this.index = i; this.val = v;
-    }
-}
 }
