@@ -4,7 +4,11 @@ class Solution {
         int k = nums[0].length();
         int len = nums.length;
         HashMap<Integer, BigInteger[][]> map = new HashMap<>();
-        for (int i = 1; i <= k ; i++) {
+        HashSet<Integer> trims = new HashSet<>();
+        for(int[] q : queries){
+            trims.add(q[1]);
+        }
+        for (int i : trims) {
             map.putIfAbsent(i, new BigInteger[len][2]);
             for (int j = 0; j < len; j++) {
                 String trim = nums[j].substring(k-i);
