@@ -15,8 +15,11 @@ class Solution {
             for (int i = 1; i < list.size(); i++) {
                 if(list.get(i) == list.get(i-1) + 1){
                     count += 1;
+                }else if(list.get(i) == list.get(i-1) + 2){
+                    count1 = count;
+                    count = 1;
                 }else{
-                    count1 = (list.get(i) == list.get(i-1) + 2) ? count : 0;
+                    count1 = 0;
                     count = 1;
                 }
                 max = Math.max(max, count + count1);
