@@ -44,10 +44,10 @@ class Solution {
         }
         int[] res = new int[queries.length];
         for (int i = 0; i < queries.length; i++) {
-            int kthSmallest = queries[i][0];
+            int kthSmallest = queries[i][0] - 1;
             int trimDigit = queries[i][1];
             List<Pair> r = map.get(trimDigit);
-            res[i] = r.get(kthSmallest-1).index;
+            res[i] = r.get(kthSmallest).index;
         }
         return res;
     }
