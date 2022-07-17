@@ -3,7 +3,7 @@ class MRUQueue {
     LinkedList<Integer> q = new LinkedList<>();
         public MRUQueue(int n) {
             for (int i = 1; i <= n; i++) {
-                q.add(i);
+                q.addLast(i);
             }
         }
 
