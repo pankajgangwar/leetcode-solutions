@@ -1,31 +1,44 @@
-import java.math.BigInteger;
 class Solution {
+    class Pair {
+        String val;
+        int index;
+        public Pair(String val, int index) {
+            this.val = val;
+            this.index = index;
+        }
+    }
+
     public int[] smallestTrimmedNumbers(String[] nums, int[][] queries) {
         int k = nums[0].length();
         int len = nums.length;
-        HashMap<Integer, BigInteger[][]> map = new HashMap<>();
+        HashMap<Integer, List<Pair>> map = new HashMap<>();
         HashSet<Integer> trims = new HashSet<>();
         for(int[] q : queries){
             trims.add(q[1]);
         }
         for (int i : trims) {
-            map.putIfAbsent(i, new BigInteger[len][2]);
+            map.putIfAbsent(i, new ArrayList<>());
             for (int j = 0; j < len; j++) {
                 String trim = nums[j].substring(k-i);
-                BigInteger num = new BigInteger(trim);
-                BigInteger[][] r = map.get(i);
-                r[j] = new BigInteger[]{num, new BigInteger(j+"")};
-                map.put(i, r);
+                int l = 0;
+                while (l < trim.length() && trim.charAt(l) == '0'){
+                    l++;
+                }
+                trim = trim.substring(l);
+                List<Pair> list = map.get(i);
+                list.add(new Pair(trim, j));
+                map.put(i, list);
             }
-            BigInteger[][] arr = map.get(i);
-            Arrays.sort(arr, new Comparator<BigInteger[]>() {
-                @Override
-                public int compare(BigInteger[] a, BigInteger[] b) {
-                    int comp = a[0].compareTo(b[0]);
-                    if(comp == 0){
-                        return (a[1].subtract(b[1])).intValue();
+            List<Pair> arr = map.get(i);
+            Collections.sort(arr, (a, b) -> {
+                if(a.val.length() == b.val.length()){
+                    int cmp = a.val.compareTo(b.val);
+                    if(cmp == 0){
+                        return a.index - b.index;
                     }
-                    return comp;
+                    return cmp;
+                }else{
+                    return a.val.length() - b.val.length();
                 }
             });
         }
@@ -33,8 +46,8 @@ class Solution {
         for (int i = 0; i < queries.length; i++) {
             int kthSmallest = queries[i][0];
             int trimDigit = queries[i][1];
-            BigInteger[][] r = map.get(trimDigit);
-            res[i] = r[kthSmallest-1][1].intValue();
+            List<Pair> r = map.get(trimDigit);
+            res[i] = r.get(kthSmallest-1).index;
         }
         return res;
     }
