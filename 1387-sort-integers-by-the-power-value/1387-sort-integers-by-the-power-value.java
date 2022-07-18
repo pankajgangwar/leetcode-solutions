@@ -1,11 +1,13 @@
 class Solution {
     public int getKth(int lo, int hi, int k) {
-        List<int[]> list = new ArrayList<>();
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[0] == b[0] ? -a[1] + b[1] : -a[0] + b[0]);
         for (int i = lo; i <= hi; i++) {
-            list.add(new int[]{getPower(i), i});
+            pq.offer(new int[]{getPower(i), i});
+            if(pq.size() > k){
+                pq.poll();
+            }
         }
-        list.sort(Comparator.comparingInt(a -> a[0]));
-        return list.get(k-1)[1];
+        return pq.peek()[1];
     }
 
      HashMap<Integer, Integer> memo = new HashMap<>();
