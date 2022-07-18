@@ -8,12 +8,17 @@ class Solution {
         return list.get(k-1)[1];
     }
 
+     HashMap<Integer, Integer> memo = new HashMap<>();
     public int getPower(int n){
-        if(n == 1 ) return 0;
+        if(n == 1 ) return n;
+        if(memo.containsKey(n)) return memo.get(n);
+        int res = 0;
         if(n % 2 == 0){
-            return 1 + getPower(n / 2);
+             res = 1 + getPower(n / 2);
         }else{
-            return 1 + getPower(3 * n + 1);
+            res = 1 + getPower(3 * n + 1);
         }
+        memo.put(n, res);
+        return memo.get(n);
     }
 }
