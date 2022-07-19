@@ -18,12 +18,13 @@ class Solution {
                         last = k;
                     }
                 }
+               // System.out.println(" first " + first + " last " + last + " i " + i + " j " + j);
                 if(ne % 2 == 0){
                     res = Math.max(res, j - i);
                 }else{
                     // Max from first neg to j or i to last neg
-                    res = Math.max(res, (last) - i);
-                    res = Math.max(res, j - (first + 1));
+                    res = Math.max(res, (last) - (i));
+                    res = Math.max(res, (j-1) - (first));
                 }
             }
             i = j;
