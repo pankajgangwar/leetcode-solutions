@@ -1,8 +1,8 @@
 class Solution {
 
     public int sumSubarrayMins(int[] arr) {
-        // return usingMonotoneStack(arr);
-        return helper(arr);
+         return usingMonotoneStack(arr);
+        //return helper(arr);
     }
 
     public int helper(int[] nums) {
