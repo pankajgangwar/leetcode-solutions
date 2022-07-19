@@ -22,7 +22,7 @@ class Solution {
                     res = Math.max(res, j - i);
                 }else{
                     // Max from first neg to j or i to last neg
-                    res = Math.max(res, last - i);
+                    res = Math.max(res, (last) - i);
                     res = Math.max(res, j - (first + 1));
                 }
             }
