@@ -4,7 +4,7 @@ class Solution {
         Arrays.sort(jobs);
         int low = jobs[0];
         int n = jobs.length;
-        int high = jobs[n - 1] * n;
+        int high = (int)1e9;
         while (low < high){
             int mid = low + (high - low) / 2;
             Arrays.fill(workers, mid);
