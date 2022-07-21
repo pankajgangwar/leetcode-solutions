@@ -8,8 +8,8 @@ class Solution {
             while (!mindq.isEmpty() && mindq.peekLast() > nums[end]) mindq.pollLast();
             while (!maxdq.isEmpty() && maxdq.peekLast() < nums[end]) maxdq.pollLast();
 
-            mindq.offer(nums[end]);
-            maxdq.offer(nums[end]);
+            mindq.addLast(nums[end]);
+            maxdq.addLast(nums[end]);
 
             if (maxdq.peekFirst() - mindq.peekFirst() > limit) {
                 if(maxdq.peekFirst() == nums[start]) maxdq.pollFirst();
