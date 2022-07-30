@@ -1,6 +1,6 @@
 class Solution {
 
-      public String countOfAtoms(String formula) {
+     public String countOfAtoms(String formula) {
         StringBuilder out = new StringBuilder();
         TreeMap<String, Integer> map = helper(formula);
         for (Map.Entry<String, Integer> e : map.entrySet()) {
@@ -33,14 +33,9 @@ class Solution {
                     }
                     String f = formula.substring(i, k);
                     map.put(f, map.getOrDefault(f, 0) + d);
-                } else if (j < n && Character.isUpperCase(formula.charAt(j))) {
-                    String f = formula.substring(i, j);
-                    map.put(f, map.getOrDefault(f, 0) + 1);
-                }else if(j < n && formula.charAt(j) == '('){
-                    String f = formula.substring(i, j);
-                    map.put(f, map.getOrDefault(f, 0) + 1);
-                }
-                else if (j == n) {
+                } else if ((j < n && Character.isUpperCase(formula.charAt(j))) || 
+                        (j < n && formula.charAt(j) == '(') ||
+                        j == n) {
                     String f = formula.substring(i, j);
                     map.put(f, map.getOrDefault(f, 0) + 1);
                 }
