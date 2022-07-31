@@ -1,92 +1,53 @@
 class Solution {
-    public int longestCycle(int[] edges) {
-        int[] ret = detectCycles(edges);
-        int max = -1;
-        for(int v : ret) max = Math.max(max, v);
-        return max;
-    }
-
-    public int[] detectCycles(int[] edges){
+    
+    public int longestCycle1(int[] edges) {
         int n = edges.length;
-        UnionFind unionFind = new UnionFind(n);
+        boolean[] visited = new boolean[n];
+        int ans = -1;
         for (int i = 0; i < n; i++) {
-            if(edges[i] >= 0){
-                unionFind.union(i, edges[i]);
+            if(visited[i]) continue;
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for(int idx = i, dist = 0; idx != -1; idx = edges[idx]){
+                if(map.containsKey(idx)){
+                    ans = Math.max(ans, dist - map.get(idx));
+                    break;
+                }
+                if(visited[idx]) break;
+                visited[idx] = true;
+                map.put(idx, dist++);
             }
         }
-        HashSet<Integer> visited = new HashSet<>();
-        int p = 0;
-        int[] ret = new int[n];
-        outer:
-        for (int i = 0; i < n; i++) {
-            if(!visited.contains(unionFind.find(i))){
-                visited.add(unionFind.find(i));
-                int pow = 1, cycleLen = 1;
-                if(edges[i] < 0) continue;
-                int tortoise = i;
-                int hare = edges[i];
-                while (tortoise != hare){
-                    if(pow == cycleLen){
-                        tortoise = hare;
-                        pow <<= 1;
-                        cycleLen = 0;
-                    }
-                    hare = edges[hare];
-                    if(hare < 0) continue outer;
-                    cycleLen++;
-                }
-                if(cycleLen > 0){
-                    ret[p++] = cycleLen;
-                }
-            }
-        }
-        return Arrays.copyOf(ret, p);
+        return ans;
     }
     
-    public class UnionFind {
-    private int count = 0;
-    private int[] parent, rank;
-    public int[] size;
-    public UnionFind(int n) {
-        count = n;
-        parent = new int[n];
-        rank = new int[n];
-        size = new int[n];
-        Arrays.fill(size, 1);
+     public int longestCycle(int[] edges) {
+        int n = edges.length;
+        boolean[] visited = new boolean[n];
+        int ans = -1;
         for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-    }
-    public int find(int p) {
-        while (p != parent[p]) {
-            parent[p] = parent[parent[p]];    // path compression by halving
-            p = parent[p];
-        }
-        return p;
-    }
-
-    public boolean isConnected(int a, int b) {
-        return (find(a) == find(b));
-    }
-
-    public void union(int p, int q) {
-        int rootP = find(p);
-        int rootQ = find(q);
-        if (rootP == rootQ) return;
-        if (rank[rootQ] > rank[rootP]) {
-            parent[rootP] = rootQ; // p points to q
-            size[rootQ] += size[rootP];
-        } else {
-            parent[rootQ] = rootP; // q points to p
-            size[rootP] += size[rootQ];
-            if (rank[rootP] == rank[rootQ]) {
-                rank[rootP]++;
+            if(!visited[i]){
+                int len = findCycleLength(edges, i, visited);
+                ans = Math.max(ans, len);
             }
         }
-        count--;
+        return ans;
     }
-    public int getDisjointSets() {
-        return count;
+
+    public int findCycleLength(int[] edge, int curr, boolean[] visited) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int dist = 0;
+        while(curr != -1){
+            if(map.containsKey(curr)) {
+                return dist - map.get(curr);
+            }
+            if(visited[curr]) {
+                return -1;
+            }
+            visited[curr] = true;
+            map.put(curr, dist++);
+            curr = edge[curr];
+        }
+        return curr == -1 ? curr : dist;
     }
-}
+    
 }
