@@ -1,5 +1,36 @@
 class Solution {
+    
+    int max = 100;
+    int inf = (int)1e9+7;
+    Integer[][] memo = new Integer[max][max];
+    int[][] cost = new int[max][max];
     public int minDistance(int[] houses, int k) {
+        int n = houses.length;
+        Arrays.sort(houses);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int median = houses[(i + j) / 2];
+                for (int m = i; m <= j ; m++) {
+                    cost[i][j] += Math.abs(houses[m] - median);
+                }
+            }
+        }
+        return dp(houses, k, 0);
+    }
+
+    private int dp(int[] houses, int k, int i) {
+        int n = houses.length;
+        if(n == i && k == 0) return 0;
+        if(n == i || k == 0) return inf;
+        if(memo[k][i] != null) return memo[k][i];
+        int ans = inf;
+        for (int j = i; j < n ; j++) {
+            ans = Math.min(ans, cost[i][j] + dp(houses, k - 1, j + 1));
+        }
+        return memo[k][i] = ans;
+    }
+    
+    public int minDistance1(int[] houses, int k) {
         int n = houses.length;
         Arrays.sort(houses);
         int[][] dp = new int[n][k];
