@@ -1,56 +1,61 @@
 class FrontMiddleBackQueue {
 
-        List<Integer> q = new ArrayList<>();
+        Deque<Integer> first = new ArrayDeque<>();
+        Deque<Integer> second = new ArrayDeque<>();
         public FrontMiddleBackQueue() {
 
         }
 
+        public void a2b(){
+            if(first.size() <= second.size()) return;
+            second.addFirst(first.removeLast());
+        }
+
+        public void b2a(){
+            if(second.size() <= first.size() + 1) return;
+            first.addLast(second.removeFirst());
+        }
+
         public void pushFront(int val) {
-            q.add(0, val);
+            first.addFirst(val);
+            a2b();
         }
 
         public void pushMiddle(int val) {
-            if(q.isEmpty()) {
-                q.add(val);
-                return;
-            }
-            int size = q.size();
-            int mid = size / 2;
-            q.add(mid, val);
+            first.addLast(val);
+            a2b();
         }
 
         public void pushBack(int val) {
-            int size = q.size();
-            q.add(size, val);
+            second.addLast(val);
+            b2a();
         }
 
         public int popFront() {
-            if(q.isEmpty()) {
-                return -1;
+            if(first.isEmpty() && second.isEmpty()) return -1;
+            if(first.isEmpty()){
+                return second.removeFirst();
+            }else{
+                int remove = first.removeFirst();
+                b2a();
+                return remove;
             }
-            return q.remove(0);
         }
 
         public int popMiddle() {
-            if(q.isEmpty()) {
-                return -1;
-            }
-            int size = q.size();
-            int mid = 0;
-            if(size%2==0){
-                mid = size / 2 - 1;
+            if(first.isEmpty() && second.isEmpty()) return -1;
+            if(first.size() == second.size()){
+                return first.removeLast();
             }else{
-                mid = size / 2;
+                return second.removeFirst();
             }
-            return q.remove(mid);
         }
 
         public int popBack() {
-            if(q.isEmpty()) {
-                return -1;
-            }
-            int size = q.size();
-            return q.remove(size - 1);
+            if(first.isEmpty() && second.isEmpty()) return -1;
+            int remove = second.removeLast();
+            a2b();
+            return remove;
         }
 }
 
