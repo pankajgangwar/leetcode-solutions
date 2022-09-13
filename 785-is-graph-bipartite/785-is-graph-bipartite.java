@@ -1,7 +1,7 @@
 class Solution {
     public boolean isBipartite(int[][] graph) {
-        //return isBipartiteUnionFind(graph);
-        return isBipartiteBFS(graph);
+        return isBipartiteUnionFind(graph);
+        //return isBipartiteBFS(graph);
     }
     public boolean isBipartiteBFS(int[][] graph) {
         HashMap<Integer, List<Integer>> map = new HashMap<>();
