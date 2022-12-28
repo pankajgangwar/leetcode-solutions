@@ -1,4 +1,5 @@
 class Solution {
+    //https://leetcode.com/discuss/interview-question/1279773/google-interview-question-array-subset-sum-equals-k
     public int countPartitions(int[] nums, int k) {
         int n = nums.length;
         int[] dp = new int[k];
