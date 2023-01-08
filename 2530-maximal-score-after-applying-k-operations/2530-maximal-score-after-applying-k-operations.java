@@ -5,7 +5,7 @@ class Solution {
             pq.offer((long) nums[i]);
         }
         long ans = 0;
-        while (k > 0 && pq.size() > 0){
+        while (k-- > 0 && pq.size() > 0){
             long max = pq.poll();
             ans += max;
             long rem = 0;
@@ -15,7 +15,6 @@ class Solution {
                 rem = (max / 3) + 1;
             }
             pq.offer(rem);
-            k -= 1;
         }
         return ans;
     }
