@@ -13,6 +13,11 @@ class Solution {
 
         int monkeyMove(int n) {
             int mod =(int)1e9+7;
-            return (int)(power(2,n,mod)+mod-2)%mod;
+            long res = power(2,n,mod);
+            if(n >> 1 == 0){
+                return (int)(res + mod - 4)%mod;
+            }else{
+                return (int)(res + mod - 2)%mod;
+            }
         }
 }
