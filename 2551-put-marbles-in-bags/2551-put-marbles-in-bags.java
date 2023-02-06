@@ -1,22 +1,20 @@
 class Solution {
     public long putMarbles(int[] weights, int k) {
-        if(k == 1 || k == weights.length) return 0;
-        long ans = 0;
-        long res = 0;
+        int n = weights.length;
+        if(k == 1 || k == n) return 0;
         k -= 1;
-        List<Long> ss = new ArrayList<>();
-        for(int i = 0; i < weights.length - 1; i++ ){
-            ss.add((long) (weights[i]+weights[i+1]));
+        n -= 1;
+        List<Long> sum = new ArrayList<>();
+        for(int i = 0; i < n; i++ ){
+            sum.add((long) (weights[i]+weights[i+1]));
         }
-        List<Long> rr = new ArrayList<>(ss);
-        Collections.sort(ss, Collections.reverseOrder());
-        Collections.sort(rr);
+        long max = 0;
+        long min = 0;
+        Collections.sort(sum);
         for(int i = 0; i < k; i++){
-            ans += ss.get(i);
+            min += sum.get(i);
+            max += sum.get(n - i - 1);
         }
-        for(int i = 0; i < k; i++){
-            res += rr.get(i);
-        }
-        return (ans - res);
+        return (max - min);
     }
 }
