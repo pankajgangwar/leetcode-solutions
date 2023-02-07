@@ -10,7 +10,7 @@ class Solution {
         long[] prea = new long[n];
         for(int i = 0; i < n; i++){
             int idxInB = index_in_b[nums1[i]];
-            int idx_in_list = 0 - Collections.binarySearch(index_in_b_sorted, idxInB) - 1;
+            int idx_in_list = ~Collections.binarySearch(index_in_b_sorted, idxInB);
             prea[i] = idx_in_list;
             index_in_b_sorted.add(idx_in_list, idxInB);
         }
@@ -18,7 +18,7 @@ class Solution {
         long[] suffA = new long[n];
         for(int i = n - 1; i >= 0; --i){
             int idxInB = index_in_b[nums1[i]];
-            int idx_in_list = 0 - Collections.binarySearch(index_in_b_sorted, idxInB) - 1;
+            int idx_in_list = ~Collections.binarySearch(index_in_b_sorted, idxInB);
             suffA[i] = index_in_b_sorted.size() - idx_in_list;
             index_in_b_sorted.add(idx_in_list, idxInB);
         }
