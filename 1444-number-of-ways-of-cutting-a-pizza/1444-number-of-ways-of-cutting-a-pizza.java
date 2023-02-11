@@ -1,26 +1,35 @@
 class Solution {
     public int ways(String[] pizza, int k) {
-        int m = pizza.length, n = pizza[0].length();
+        int m = pizza.length;
+        int n = pizza[0].length();
+        int[][] prefSum = new int[m + 1][n + 1];
         Integer[][][] dp = new Integer[k][m][n];
-        int[][] preSum = new int[m+1][n+1]; // preSum[r][c] is the total number of apples in pizza[r:][c:]
-        for (int r = m - 1; r >= 0; r--)
-            for (int c = n - 1; c >= 0; c--)
-                preSum[r][c] = preSum[r][c+1] + preSum[r+1][c] - preSum[r+1][c+1] + (pizza[r].charAt(c) == 'A' ? 1 : 0);
-        return dfs(m, n, k-1, 0, 0, dp, preSum);
+        for (int r = m - 1; r >= 0 ; --r) {
+            for (int c = n - 1; c >= 0 ; --c) {
+                prefSum[r][c] = prefSum[r][c+1] + prefSum[r+1][c] - prefSum[r+1][c+1]
+                        + (pizza[r].charAt(c) == 'A' ? 1 : 0);
+            }
+        }
+        return dfs(prefSum, dp, k - 1, m, n, 0,0);
     }
-    int dfs(int m, int n, int k, int r, int c, Integer[][][] dp, int[][] preSum) {
-        if (preSum[r][c] == 0) return 0; // if the remain piece has no apple -> invalid
-        if (k == 0) return 1; // found valid way after using k-1 cuts
-        if (dp[k][r][c] != null) return dp[k][r][c];
+
+    public int dfs(int[][] prefixSum,Integer[][][] dp, int k,
+                    int m, int n, int r, int c){
+        if(prefixSum[r][c] == 0) return 0;
+        int mod = (int)1e9 + 7;
+        if(k == 0) return 1;
+        if(dp[k][r][c] != null) return dp[k][r][c];
         int ans = 0;
-        // cut in horizontal
-        for (int nr = r + 1; nr < m; nr++) 
-            if (preSum[r][c] - preSum[nr][c] > 0) // cut if the upper piece contains at least one apple
-                ans = (ans + dfs(m, n, k - 1, nr, c, dp, preSum)) % 1_000_000_007;
-        // cut in vertical
-        for (int nc = c + 1; nc < n; nc++) 
-            if (preSum[r][c] - preSum[r][nc] > 0) // cut if the left piece contains at least one apple
-                ans = (ans + dfs(m, n, k - 1, r, nc, dp, preSum)) % 1_000_000_007;
+        for (int nr = r + 1; nr < m ; nr++) {
+            if(prefixSum[r][c] - prefixSum[nr][c] > 0){
+                ans = (ans + dfs(prefixSum,dp, k - 1, m,n, nr,c )) % mod;
+            }
+        }
+        for (int nc = c + 1; nc < n ; nc++) {
+            if(prefixSum[r][c] - prefixSum[r][nc] > 0){
+                ans = (ans + dfs(prefixSum,dp, k - 1, m,n, r, nc )) % mod;
+            }
+        }
         return dp[k][r][c] = ans;
     }
 }
