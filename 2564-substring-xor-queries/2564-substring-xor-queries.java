@@ -10,9 +10,12 @@ class Solution {
                 }
                 continue;
             }
-            long num = 0;
+            //long num = 0;
+            StringBuilder sb = new StringBuilder();
             for(int j = i; j <= Math.min(i + 32, n-1); j++){
-                num = (num << 1) + (s.charAt(j) - '0');
+                //num = (num << 1) + (s.charAt(j) - '0');
+                sb.append(s.charAt(j));
+                long num = Long.parseLong(sb.toString(), 2);
                 if(!map.containsKey(num)){
                     map.put(num, new int[]{i,j});
                 }
