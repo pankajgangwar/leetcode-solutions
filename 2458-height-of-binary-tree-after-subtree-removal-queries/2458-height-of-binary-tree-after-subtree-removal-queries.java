@@ -67,7 +67,6 @@ class Solution {
         }
         int h = Math.max(height(curr.left, map), height(curr.right, map));
         map.put(curr.val, h + 1);
-        //System.out.println("Height from bottom " + curr.val + " is " + h);
         return h + 1;
     }
 }
