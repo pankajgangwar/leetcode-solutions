@@ -14,7 +14,40 @@
  * }
  */
 class Solution {
+    
+    int max = 100001;
+    int[] d1 = new int[max];
+    int[] d2 = new int[max];
+    int[]level = new int[max];
+    int[]depth = new int[max];
     public int[] treeQueries(TreeNode root, int[] queries) {
+        height(root, 0);
+        int totalQueries = queries.length;
+        int[] ans = new int[totalQueries];
+        for (int i = 0; i < totalQueries; i++) {
+            int q = queries[i];
+            int l = level[q];
+            ans[i] = l + (d1[l] == depth[q] ? d2[l] : d1[l]) - 1;
+        }
+        return ans;
+    }
+
+    public int height(TreeNode curr, int l){
+        if(curr == null) return 0;
+        level[curr.val] = l;
+        int h = 1 + Math.max(height(curr.left, l + 1),
+                height(curr.right, l + 1));
+        depth[curr.val] = h;
+        if(d1[l] < depth[curr.val]){
+            d2[l] = d1[l];
+            d1[l] = depth[curr.val];
+        }else if(d2[l] < depth[curr.val]){
+            d2[l] = depth[curr.val];
+        }
+        return depth[curr.val];
+    }
+    
+    public int[] treeQueries1(TreeNode root, int[] queries) {
         HashMap<Integer, Integer> heightMap = new HashMap<>();
         height(root, heightMap);
         Queue<TreeNode> queue = new LinkedList<>();
