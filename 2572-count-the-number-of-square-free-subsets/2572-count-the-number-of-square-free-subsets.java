@@ -1,16 +1,16 @@
 class Solution {
     int[] primes = new int[]{2,3,5,7,11,13,17,19,23,29};
     /**
-   from question, 
-   maximum array size is 1000 
-   size of primes number less than 30 is eleven because == 10 + plus prime number one
-   1 + {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};    
-   **/
-    Long[][] dp = new Long[1000][1<<11];
+     from question,
+     maximum array size is 1000
+     size of primes number less than 30 is eleven because == 10 + plus prime number one
+     1 + {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
+     **/
+    Long[][] dp = new Long[1111][1<<11];
     int mod = (int) 1e9 + 7;
     public int squareFreeSubsets(int[] nums) {
         //all numbers divisible by 1, hence mask starts with 1
-        return (int) f(nums, 0, 1, dp) - 1;// -1 for all zero case
+        return (int) f(nums, 0, 1) - 1;// -1 for all zero case
     }
 
     private int getMask(long num){
@@ -29,18 +29,18 @@ class Solution {
         return mask;
     }
 
-    private long f(int[] nums, int idx, int mask, Long[][] memo){
+    private long f(int[] nums, int idx, int prodMask){
         int n = nums.length;
         if(idx == n) return 1;
-        if(memo[idx][mask] != null) return memo[idx][mask];
+        if(dp[idx][prodMask] != null) return dp[idx][prodMask];
         //not select current index number
-        long ans = f(nums, idx + 1, mask, memo) % mod;
-        int m = getMask(nums[idx]);
+        long ans = f(nums, idx + 1, prodMask) % mod;
+        int mask = getMask(nums[idx]);
         //if there's no common bit, i.e square free
-        if(m != -1 && (mask & m) == 0){
+        if(mask != -1 && (prodMask & mask) == 0){
             //select current idx
-            ans = (ans + f(nums, idx + 1, mask | m, memo)) % mod;
+            ans = (ans + f(nums, idx + 1, prodMask | mask)) % mod;
         }
-        return memo[idx][mask] = (ans % mod);
+        return dp[idx][prodMask] = (ans % mod);
     }
 }
