@@ -19,9 +19,9 @@ class Solution {
         int pow = (int)(Math.log(n) / Math.log(2));
         //if((1 << pow) == n) return 1;
         if((n & (n - 1)) == 0) return 1;
-        int diff1 = minOperations(n - (1 << pow));
-        int diff2 = minOperations((1 << (pow + 1)) - n);
-        return 1 + Math.min(diff1, diff2);
+        int op1 = minOperations(n - (1 << pow));
+        int op2 = minOperations((1 << (pow + 1)) - n);
+        return 1 + Math.min(op1, op2);
     }
     
 }
