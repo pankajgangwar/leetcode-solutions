@@ -10,7 +10,7 @@ class Solution {
     int mod = (int) 1e9 + 7;
     public int squareFreeSubsets(int[] nums) {
         //all numbers divisible by 1, hence mask starts with 1
-        return (int) f(nums, 0, 1) - 1;// -1 for all zero case
+        return (int) f(nums, 0, 1) - 1;// -1 for all zero case i.e when we have not taken any number
     }
 
     private int getMask(long num){
@@ -21,8 +21,10 @@ class Solution {
                 num /= primes[i];
                 cnt++;
             }
+            // if a number is getting divided with a prime more than 1 time meaning it can be divided by that primes square
             if(cnt > 1) return -1;
             if(cnt == 1){
+                // i + 1 because the for i == 0 product 1 has already been taken
                 mask |= (1 << (i+1));
             }
         }
