@@ -1,11 +1,11 @@
 class Solution {
     public int minImpossibleOR(int[] nums) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashSet<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+            set.add(nums[i]);
         }
         for (int i = 0; i < 31; i++) {
-            if (!map.containsKey(1 << i)) {
+            if (!set.contains(1 << i)) { // minimum power of 2
                 return 1 << i;
             }
         }
