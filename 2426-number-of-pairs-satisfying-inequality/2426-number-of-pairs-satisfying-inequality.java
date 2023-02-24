@@ -1,10 +1,12 @@
 class Solution {
      public long numberOfPairs(int[] nums1, int[] nums2, int diff) {
         int[] arr = new int[nums1.length];
+        
+        int n = arr.length;
         for(int i = 0; i < nums1.length; i++){
             arr[i] = nums1[i] - nums2[i];
         }
-        mergesort(arr, 0, nums2.length - 1, diff);
+        mergesort(arr, 0, n - 1, diff);
         return ans;
     }
 
