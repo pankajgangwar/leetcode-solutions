@@ -22,11 +22,16 @@ public:
 
         // dp[i]: minimum number of semesters of mask i, the set bits are courses that have not been taken
         vector<int> dp(1 << n, n + 1);
+        int l = 1 << n;
+        //cout << "len is " << l << '\n';   
         dp[0] = 0;
+        for (int i = 0; i < (1 << n); ++i) {
+            //cout << dp[i] << '\n';            
+        }
         for (int i = 1; i < (1 << n); ++i) {
             // iterate all submask of mask i, and this mask is the mask of last semester
             // see: https://cp-algorithms.com/algebra/all-submasks.html
-            for (int j = i; j; j = (j - 1) & i) {
+            for (int j = i; j > 0; j = (j - 1) & i) {
                 if (count_setbit(j) > k) {
                     continue;
                 }
