@@ -8,20 +8,22 @@ class Solution {
             int v = r[1] - 1;
             dependency[v] |= 1 << u;
         }
-        int[] prerequisites = new int[1 << n];
-        for (int i = 0; i < (1 << n); ++i) {
+        int len = 1 << n;
+        int[] prerequisites = new int[len];
+        for (int i = 0; i < len; ++i) {
             for (int j = 0; j < n; ++j) {
                 if ((i & (1 << j)) > 0) {
                     prerequisites[i] |= dependency[j];
                 }
             }
         }
-        int[] dp = new int[1 << n];
+        int[] dp = new int[len];
         dp[0] = 0;
-        for (int i = 1; i < dp.length; i++) {
+        
+        for (int i = 1; i < len; i++) {
             dp[i] = n + 1;
         }
-        for (int i = 1; i < (1 << n); ++i) {
+        for (int i = 1; i < len; ++i) {
             // iterate all submask of mask i, and this mask is the mask of last semester
             // see: https://cp-algorithms.com/algebra/all-submasks.html
             for (int j = i; j > 0; j = (j - 1) & i) {
@@ -29,7 +31,7 @@ class Solution {
                     continue;
                 }
 
-                int already_taken = i ^ ((1 << n) - 1);
+                int already_taken = i ^ (len - 1);
                 if ((already_taken & prerequisites[j]) == prerequisites[j]) {
                     dp[i] = Math.min(dp[i], dp[i ^ j] + 1);
                 }
