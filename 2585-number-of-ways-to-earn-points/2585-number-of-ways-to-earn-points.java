@@ -1,4 +1,6 @@
 class Solution {
+    //https://cses.fi/problemset/task/1636
+    //Coin Combinations II
     public int waysToReachTarget(int amount, int[][] types) {
         int dp[] = new int[amount + 1];
         int mod = (int) 1e9 + 7;
