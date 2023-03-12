@@ -11,7 +11,6 @@ class Solution {
             }
             map.put(curr_char, i);
             max = Math.max(max, i - j + 1);
-            //System.out.println(max);
         }
         return max;
     }
