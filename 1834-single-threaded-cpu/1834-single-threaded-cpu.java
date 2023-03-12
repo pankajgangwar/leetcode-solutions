@@ -18,11 +18,12 @@ class Solution {
             }
             if(availableTask.isEmpty()){
                 time = tasks[idx][0];
-                continue;
+            }else{
+                int[] bestFit = availableTask.poll();
+                res[resIdx++] = bestFit[2];
+                time += bestFit[1];
             }
-            int[] bestFit = availableTask.poll();
-            res[resIdx++] = bestFit[2];
-            time += bestFit[1];
+            
         }
         return res;
     }
