@@ -1,7 +1,7 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-       // return findAnagrams(s2, s1).size() > 0;
-        return helper(s1, s2);
+       return findAnagrams(s2, s1).size() > 0;
+        //return helper(s1, s2);
     }
     
     public boolean helper(String s1, String s2){
