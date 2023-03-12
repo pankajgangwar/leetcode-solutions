@@ -12,10 +12,6 @@ class Solution {
 			}
 		});
         
-        for(int[] c : costs){
-            System.out.println(Arrays.toString(c));
-        }
-
 		for (int i = 0; i < n/2; i++) {
 			totalCost+= costs[i][0];
 		}
