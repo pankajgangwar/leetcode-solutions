@@ -1,5 +1,5 @@
 class Solution {
-    public int firstMissingPositive(int[] nums) {
+    public int firstMissingPositive2(int[] nums) {
         int n = nums.length;
         for(int i = 0; i < n; i++){
             if(nums[i] <= 0 || nums[i] > n){
@@ -25,7 +25,7 @@ class Solution {
         return n+1;
     }
     
-    public int firstMissingPositive1(int[] nums) {
+    public int firstMissingPositive(int[] nums) {
         int[] arr = findMissing(nums);
         int size = arr.length;
         for(int i = 0; i < size; i++){
