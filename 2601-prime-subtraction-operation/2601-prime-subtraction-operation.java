@@ -12,6 +12,20 @@ class Solution {
         }
         return true;
     }
+    
+    public boolean primeSubOperation1(int[] nums) {
+        TreeSet<Integer> primes = sieveOfEratosthenes(1001);
+        for (int i = 0; i < nums.length; i++) {
+            Integer p = primes.lower(nums[i] - (i > 0 ? nums[i-1] : 0));
+            if(p != null){
+                nums[i] -= p;
+            }
+            if(i > 0 && nums[i] <= nums[i-1]){
+                return false;
+            }
+        }
+        return true;
+    }
     public TreeSet<Integer> sieveOfEratosthenes(int n) {
         boolean prime[] = new boolean[n + 1];
         TreeSet<Integer> set = new TreeSet<>();
