@@ -15,6 +15,7 @@ class Solution {
         while (!minQ.isEmpty()){
             int[] arr = minQ.poll();
             int cost = arr[0], city = arr[1], dis = arr[2];
+            if (visited[city][dis] < cost) continue;
             if(city == n - 1) return cost;
             for(int[] adj : graph[city]){
                 int next = adj[0], weight = adj[1];
