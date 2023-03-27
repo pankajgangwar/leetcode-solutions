@@ -1,5 +1,6 @@
 class Solution {
 
+    //Bellman-ford
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K){
         int[] cost=new int[n];
         Arrays.fill(cost,Integer.MAX_VALUE);
