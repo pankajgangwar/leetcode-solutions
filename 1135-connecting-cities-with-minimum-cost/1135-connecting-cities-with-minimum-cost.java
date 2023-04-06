@@ -1,8 +1,8 @@
 class Solution {
     
     public int minimumCost(int n, int[][] connections) {
-        //return minimumCostKruskal(n, connections);
-        return minimumCostPrims(n, connections);
+        return minimumCostKruskals(n, connections);
+       // return minimumCostPrims(n, connections);
     }
     public int minimumCostKruskals(int n, int[][] connections) {
 
