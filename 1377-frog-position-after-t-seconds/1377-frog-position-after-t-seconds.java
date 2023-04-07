@@ -19,12 +19,12 @@ class Solution {
                 visited[u] = true;
                 int total = 0;
 
-                for(int adj : graph[u]) if(!visited[adj]) total++;
+                for(int v : graph[u]) if(!visited[v]) total++;
 
-                for(int adj : graph[u]){
-                    if(visited[adj]) continue;
-                    prob[adj] = prob[u] / total;
-                    queue.offer(adj);
+                for(int v : graph[u]){
+                    if(visited[v]) continue;
+                    prob[v] = prob[u] / total;
+                    queue.offer(v);
                 }
                 if(total > 0) prob[u] = 0;
             }
