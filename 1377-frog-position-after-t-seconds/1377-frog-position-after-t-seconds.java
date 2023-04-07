@@ -21,7 +21,7 @@ class Solution {
                 int total = 0;
 
                 for(int v : graph[u]) if(!visited[v]) total++;
-
+                
                 for(int v : graph[u]){
                     if(visited[v]) continue;
                     prob[v] = prob[u] / total;
