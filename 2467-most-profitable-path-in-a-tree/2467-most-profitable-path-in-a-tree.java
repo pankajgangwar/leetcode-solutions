@@ -12,8 +12,6 @@ class Solution {
         List<Integer> path = new ArrayList<>();
         dfs(bob, graph, amount, new boolean[n], path);
         
-        //System.out.println(path);
-        
         int len = path.size() - 1;
         int i = len / 2;
         if(len % 2 == 0){
@@ -29,7 +27,6 @@ class Solution {
                 amount[u] = 0;
             }
         }
-        System.out.println(Arrays.toString(amount));
         
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[]{0, amount[0]});
@@ -49,7 +46,6 @@ class Solution {
                 queue.offer(new int[]{v, amount[v] + c});
             }
             if(isLeaf){
-                //System.out.println(" is Leaf u " + u + " c " + c);
                 max = Math.max(max, c);
             }
         }
