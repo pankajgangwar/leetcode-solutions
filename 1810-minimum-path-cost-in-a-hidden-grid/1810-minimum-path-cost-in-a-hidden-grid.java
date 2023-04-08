@@ -30,6 +30,7 @@ class Solution {
                 if(curr_x == target[0] && curr_y == target[1]){
                     return cost;
                 }
+                if(visited[curr_x][curr_y]) continue;
                 visited[curr_x][curr_y] = true;
                 for (int i = 0; i < dxys.length; i++) {
                      int next_x = dxys[i][0] + curr_x;
