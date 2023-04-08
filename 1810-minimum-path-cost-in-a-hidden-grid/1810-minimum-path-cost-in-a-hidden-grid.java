@@ -11,7 +11,7 @@
 class Solution {
  	int[][] dxys = new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     char[] dirs = new char[] {'U', 'D', 'L', 'R'};
-    
+    int[] target = new int[]{-100, -100};
     public int findShortestPath(GridMaster master) {
         int[][] grid = new int[200][200];
         for (int i = 0; i < 200; i++) {
@@ -20,63 +20,55 @@ class Solution {
             }
         }
         grid[99][99] = 0;
-        int[] target = new int[] {-100, -100};
-        fillGrid(master, 99, 99, grid, target);
+        fillGrid(99, 99, grid, master);
         boolean[][] visited = new boolean[200][200];
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
-            if (a[2] == b[2]) {
-                return 0;
-            }
-            return a[2] < b[2] ? -1 : 1;
-        });
-        pq.offer(new int[] {99, 99, 0});
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int row = cur[0];
-            int col = cur[1];
-            int cost = cur[2];
-            if (row == target[0] && col == target[1]) {
-                return cost;
-            }
-            if (visited[row][col]) {
-                continue;
-            }
-            visited[row][col] = true;
-            for (int[] dxy : dxys) {
-                int nextRow = row + dxy[0];
-                int nextCol = col + dxy[1];
-                if (nextRow < 0 || nextRow >= 200 || nextCol < 0 || nextCol >= 200 || visited[nextRow][nextCol] || grid[nextRow][nextCol] == -1) {
-                    continue;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[2] - b[2]);
+        pq.offer(new int[]{99, 99, 0});
+        while (!pq.isEmpty()){
+                int[] curr = pq.poll();
+                int curr_x = curr[0], curr_y = curr[1], cost = curr[2];
+                if(curr_x == target[0] && curr_y == target[1]){
+                    return cost;
                 }
-                int nextCost = cost + grid[nextRow][nextCol];
-                pq.offer(new int[] {nextRow, nextCol, nextCost});
+                visited[curr_x][curr_y] = true;
+                for (int i = 0; i < dxys.length; i++) {
+                     int next_x = dxys[i][0] + curr_x;
+                     int next_y = dxys[i][1] + curr_y;
+                     if(next_x < 0 || next_x >= grid.length
+                             || next_y < 0 || next_y >= grid[0].length
+                             || visited[next_x][next_y] || grid[next_x][next_y] == -1){
+                         continue;
+                     }
+                     int nextCost = cost + grid[next_x][next_y];
+                     pq.offer(new int[]{next_x, next_y, nextCost});
+                }
             }
-        }
         return -1;
     }
     
-    private void fillGrid(GridMaster master, int row, int col, int[][] grid, int[] target) {
-        
-        if (master.isTarget()) {
-            target[0] = row;
-            target[1] = col;
-        }
-        
-        for (int i = 0; i < 4; i++) {
-            char ch = dirs[i];
-            int[] dxy = dxys[i];
-            int nr = row + dxy[0];
-            int nc = col + dxy[1];
-            if (master.canMove(ch) && grid[nr][nc] == -1) {
-                int val = master.move(ch);
-                grid[nr][nc] = val;
-                fillGrid(master, nr, nc, grid, target);
-                if (i == 0 || i == 1) {
-                    master.move(dirs[1 - i]);
-                } else {
-                    master.move(dirs[5 - i]);
+    private void fillGrid(int currX, int currY,
+                              int[][] grid, GridMaster master) {
+            if(master.isTarget()){
+                target[0] = currX;
+                target[1] = currY;
+            }
+
+            for (int i = 0; i < dirs.length; i++) {
+                char ch = dirs[i];
+                int next_x = currX + dxys[i][0];
+                int next_y = currY + dxys[i][1];
+                if(next_x >= grid.length || next_x < 0 || next_y < 0 || next_y >= grid[0].length){
+                    continue;
+                }
+                if(master.canMove(ch) && grid[next_x][next_y] == -1){
+                    grid[next_x][next_y] = master.move(ch);
+                    fillGrid(next_x, next_y, grid, master);
+                    if (i == 0 || i == 1) {
+                        master.move(dirs[1 - i]);
+                    } else {
+                        master.move(dirs[5 - i]);
+                    }
                 }
             }
         }
-    }
 }
