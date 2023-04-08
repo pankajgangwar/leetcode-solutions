@@ -14,16 +14,16 @@ class Solution {
     char[] rev_dirs = new char[] {'D', 'U', 'R', 'L'};
 
     int[] target = new int[]{-100, -100};
-    int m = 501;
-    int s = m - 1;
+    int len = 1002;
+    int s = len / 2;
     public int findShortestPath(GridMaster master) {
-        int[][] grid = new int[m*2][m*2];
-        for (int i = 0; i < (m*2); i++) {
+        int[][] grid = new int[len][len];
+        for (int i = 0; i < (len); i++) {
             Arrays.fill(grid[i], -1);
         }
         grid[s][s] = 0;
         fillGrid(s, s, grid, master);
-        boolean[][] visited = new boolean[m*2][m*2];
+        boolean[][] visited = new boolean[len][len];
 
         Queue<int[]> pq = new LinkedList<>();
         pq.offer(new int[]{s, s});
