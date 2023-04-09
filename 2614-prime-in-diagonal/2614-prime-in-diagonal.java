@@ -2,11 +2,12 @@ class Solution {
     
     boolean[] sieve = new boolean[4000001];
     public void buildSieve(){
-        sieve[0] = sieve[1] = true;
+        Arrays.fill(sieve, true);
+        sieve[0] = sieve[1] = false;
         for (int p = 2; p*p <= 4000001 ; p++) {
-            if(!sieve[p]){
+            if(sieve[p]){
                 for (int i = p*p; i < 4000001; i += p) {
-                    sieve[i] = true;
+                    sieve[i] = false;
                 }
             }
         }
@@ -20,13 +21,13 @@ class Solution {
             for (int j = 0; j < n; j++) {
                 if(i == j){
                     int diag = nums[i][i];
-                    if(!sieve[diag]){
+                    if(sieve[diag]){
                         max = Math.max(max, diag);
                     }
                 }
                 if(j == (n - i - 1)){
                     int antiDiag = nums[i][n - i - 1];
-                    if(!sieve[antiDiag]){
+                    if(sieve[antiDiag]){
                         max = Math.max(max, antiDiag);
                     }
                 }
