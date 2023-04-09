@@ -1,9 +1,9 @@
 class Solution {
     
     public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
-        //return probabilityWithBellmanFord(n, edges, succProb, start, end);
-        //return probabilityWithFloydWarshall(n, edges, succProb, start, end);
-        return probabilityWithDijkstra(n, edges, succProb, start, end);
+       return probabilityWithBellmanFord(n, edges, succProb, start, end);
+       // return probabilityWithFloydWarshall(n, edges, succProb, start, end);
+        //return probabilityWithDijkstra(n, edges, succProb, start, end);
     }
 
     public double probabilityWithBellmanFord(int n, int[][] edges, double[] succProb, int start, int end){
@@ -34,6 +34,7 @@ class Solution {
     }
 
     public double probabilityWithFloydWarshall(int n, int[][] edges, double[] succProb, int start, int end){
+        //TLE
         double[][] probs = new double[n][n];
 
         for (int i = 0; i < edges.length; i++) {
