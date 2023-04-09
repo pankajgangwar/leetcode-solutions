@@ -17,7 +17,7 @@ class Solution {
                 for(int i = 0; i < size; i++){
                     int index = indices.get(i);
                     long tmp = nextSum - ((long) (size - i) * index);
-                    tmp += Math.abs(prevSum - (long) i * index);
+                    tmp += Math.abs(prevSum - (long)i * index);
                     arr[index] = tmp;
                     nextSum -= index;
                     prevSum += index;
