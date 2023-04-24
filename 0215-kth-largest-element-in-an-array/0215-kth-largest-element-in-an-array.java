@@ -1,8 +1,8 @@
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        return quickSelectRec(nums, nums.length - k, 0, nums.length -1);
+        //return quickSelectRec(nums, nums.length - k, 0, nums.length -1);
         //return quickSelect(nums, k);
-        //return usingMaxHeap(nums, k);
+        return usingMaxHeap(nums, k);
     }
     
     public int usingMaxHeap(int[] nums, int k){
