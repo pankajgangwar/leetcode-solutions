@@ -3,6 +3,7 @@ class Solution {
         char[] arr = s.toCharArray();
         for (int i = arr.length - 1; i >=0 ; i--) {
             arr[i]++;
+            //System.out.println(Arrays.toString(arr));
             while (!isValid(arr, i)){
                 arr[i]++;
             }
