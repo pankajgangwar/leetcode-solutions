@@ -25,12 +25,21 @@ class Solution {
             }else{
                 //Node has both left and right child
                 //Find minimum from right sub-tree and delete
-                root.val = minValue(root.right);
+                root.val = maxValue(root.left);
                 
-                root.right = deleteNode(root.right, root.val);
+                root.left = deleteNode(root.left, root.val);
             }
         }
         return root;
+    }
+    
+    public int maxValue(TreeNode root){
+        int max = root.val;
+        while(root.right != null){
+            max = root.right.val;
+            root = root.right;
+        }
+        return max;
     }
     
     public int minValue(TreeNode root){
