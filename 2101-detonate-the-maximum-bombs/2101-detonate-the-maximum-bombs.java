@@ -14,7 +14,7 @@ class Solution {
                 int y2 = b[1];
                 graph.putIfAbsent(i, new LinkedList<>());
                 
-                long r2 = (long) a[2] * a[2];
+                long r2 = (long)a[2] * a[2];
                 long dis = (long) Math.pow(x2 - x1, 2) + (long)Math.pow(y2 - y1, 2);
                 if(dis <= r2){
                     graph.get(i).add(j);
