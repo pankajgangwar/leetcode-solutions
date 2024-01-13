@@ -100,8 +100,8 @@ class Solution {
         if(curr.left == null && curr.right == null){
             return 0;
         }
-        int h = Math.max(height(curr.left, map), height(curr.right, map));
-        map.put(curr.val, h + 1);
-        return h + 1;
+        int h = 1 + Math.max(height(curr.left, map), height(curr.right, map));
+        map.put(curr.val, h);
+        return h;
     }
 }
