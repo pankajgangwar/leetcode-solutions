@@ -27,6 +27,38 @@ class Solution {
     }
     
     public int minimumSemesters(int N, int[][] relations) {
+        HashMap<Integer, List<Integer>> g = new HashMap<>();
+        int[] indegree = new int[N + 1];
+        for(int[] c : relations){
+            g.putIfAbsent(c[0], new ArrayList<>());
+            g.get(c[0]).add(c[1]);
+            ++indegree[c[1]];
+        }
+        Queue<Integer> bfs = new LinkedList<>();
+        for (int i = 1; i <= N ; i++) {
+            if(indegree[i] == 0){
+                bfs.add(i);
+            }
+        }
+        int res = 0;
+        while (!bfs.isEmpty()){
+            int sz = bfs.size();
+            while (sz-- > 0){
+                N--;
+                List<Integer> nextCourses = g.getOrDefault(bfs.poll(), new ArrayList<>());
+                for(int c : nextCourses){
+                    if(--indegree[c] == 0){
+                        bfs.offer(c);
+                    }
+                }
+            }
+            ++res;
+        }
+        return N == 0 ? res : -1;
+    }
+
+    
+    public int minimumSemesters2(int N, int[][] relations) {
         int[] indegree = new int[N+1];
         
         HashMap<Integer, ArrayList<Integer>> graph = new HashMap<>();
