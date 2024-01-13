@@ -15,15 +15,17 @@
  */
 class Solution {
     
-    int max = 100001;
+    //int max = 100001;
+    int max = 10;
     int[] d1 = new int[max];
     int[] d2 = new int[max];
     int[]level = new int[max];
     int[]depth = new int[max];
-    public int[] treeQueries(TreeNode root, int[] queries) {
+    public int[] treeQueries1(TreeNode root, int[] queries) {
         height(root, 0);
         int totalQueries = queries.length;
         int[] ans = new int[totalQueries];
+        System.out.println(Arrays.toString(d1) + "\n" + Arrays.toString(d2) + "\n" + Arrays.toString(depth) + " \n" + Arrays.toString(level));
         for (int i = 0; i < totalQueries; i++) {
             int q = queries[i];
             int l = level[q];
@@ -47,7 +49,7 @@ class Solution {
         return depth[curr.val];
     }
     
-    public int[] treeQueries1(TreeNode root, int[] queries) {
+    public int[] treeQueries(TreeNode root, int[] queries) {
         HashMap<Integer, Integer> heightMap = new HashMap<>();
         height(root, heightMap);
         Queue<TreeNode> queue = new LinkedList<>();
