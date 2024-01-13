@@ -1,5 +1,58 @@
 class Solution {
-    public double[] calcEquation(List<List<String>> e, double[] v, List<List<String>> q) {
+        public double[] calcEquation(List<List<String>> equations, 
+                                     double[] values, List<List<String>> queries) {
+        Map<String, Map<String, Double>> graph = new HashMap<>();
+
+        // Build the graph
+        for (int i = 0; i < equations.size(); i++) {
+            String numerator = equations.get(i).get(0);
+            String denominator = equations.get(i).get(1);
+            double value = values[i];
+
+            graph.putIfAbsent(numerator, new HashMap<>());
+            graph.putIfAbsent(denominator, new HashMap<>());
+
+            graph.get(numerator).put(denominator, value);
+            graph.get(denominator).put(numerator, 1.0 / value);
+        }
+
+        double[] results = new double[queries.size()];
+
+        // Perform DFS for each query
+        for (int i = 0; i < queries.size(); i++) {
+            String numerator = queries.get(i).get(0);
+            String denominator = queries.get(i).get(1);
+
+            results[i] = dfs(graph, numerator, denominator, new HashSet<>());
+        }
+
+        return results;
+    }
+
+    private double dfs(Map<String, Map<String, Double>> graph, String start, String end, Set<String> visited) {
+        if (!graph.containsKey(start) || !graph.containsKey(end)) {
+            return -1.0;
+        }
+
+        if (start.equals(end)) {
+            return 1.0;
+        }
+
+        visited.add(start);
+
+        for (Map.Entry<String, Double> neighbor : graph.get(start).entrySet()) {
+            if (!visited.contains(neighbor.getKey())) {
+                double result = dfs(graph, neighbor.getKey(), end, visited);
+                if (result != -1.0) {
+                    return result * neighbor.getValue();
+                }
+            }
+        }
+
+        return -1.0;
+    }
+    
+    public double[] calcEquation1(List<List<String>> e, double[] v, List<List<String>> q) {
         double[] result = new double[q.size()];
         HashMap<String, Double> dist = new HashMap<>();
         HashMap<String, String> root = new HashMap<>();      
