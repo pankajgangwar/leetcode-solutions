@@ -1,8 +1,8 @@
 class Solution {
     public int longestRepeatingSubstring(String s) {
-        //return usingBinarySearch(s);
+        return usingBinarySearch(s);
         //return usingLCPConstructionNaive(s);
-        return usingSuffixArray(s);
+        //return usingSuffixArray(s);
         /*SuffixArray sa = new SuffixArray(s);
         TreeSet<String> res = sa.lrs();
         System.out.println("sa.lrs(); = " + res);
