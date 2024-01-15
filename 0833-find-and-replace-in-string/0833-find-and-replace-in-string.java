@@ -23,8 +23,7 @@ class Solution {
             int idx = arr[i].index;
             String src = arr[i].src;
             String sub = s.substring(idx);
-            if (sub.startsWith(src) && !replaced.contains(idx)) {
-                replaced.add(idx);
+            if (sub.startsWith(src) && replaced.add(idx)) {
                 String tar = arr[i].tar;
                 String first = s.substring(0, idx);
                 String last = s.substring(idx + src.length());
