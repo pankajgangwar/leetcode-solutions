@@ -1,8 +1,8 @@
 class Solution {
     
      public int racecar(int t) {
-         //return racecarBfs1(t);
-         return racecarDp(t);
+         return racecarBfs1(t);
+        // return racecarDp(t);
      }
     
     public int racecarBfs1(int target) {
