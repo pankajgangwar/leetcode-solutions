@@ -1,4 +1,5 @@
 class Solution {
+   
     public long[] placedCoins(int[][] edges, int[] cost) {
         int n = cost.length;
         res = new long[cost.length];
@@ -36,9 +37,7 @@ class Solution {
             res[src] = 1;
         }
         if(n <= 5) return temp;
-        List<Integer> ans = new ArrayList<>();
-        if(n <= 5) return temp;
-        
         return new ArrayList<>(Arrays.asList(temp.get(0), temp.get(1), temp.get(n - 3), temp.get(n - 2), temp.get(n - 1)));
     }
+   
 }
