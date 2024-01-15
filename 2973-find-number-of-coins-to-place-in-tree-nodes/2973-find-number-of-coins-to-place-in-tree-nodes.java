@@ -1,43 +1,42 @@
 class Solution {
-    
     public long[] placedCoins(int[][] edges, int[] cost) {
-        Map<Integer, List<Integer>> map = new HashMap();
-        for(int[] edge: edges) {
-            map.putIfAbsent(edge[0], new ArrayList());
-            map.putIfAbsent(edge[1], new ArrayList());
-            map.get(edge[0]).add(edge[1]);
-            map.get(edge[1]).add(edge[0]);
-        }
         int n = cost.length;
-        long[] ans = new long[n];
-        Arrays.fill(ans, 0l);
+        res = new long[cost.length];
+        HashMap<Integer, HashSet<Integer>> g = new HashMap<>();
+        for(int[] e : edges){
+            g.putIfAbsent(e[0], new HashSet<>());
+            g.get(e[0]).add(e[1]);
+
+            g.putIfAbsent(e[1], new HashSet<>());
+            g.get(e[1]).add(e[0]);
+        }
         boolean[] visited = new boolean[n];
-        dfs(map, cost, ans, 0, visited);
-        return ans;
+        dfs(0, g, cost, -1, visited);
+        return res;
     }
-    
-    public List<Integer> dfs(Map<Integer, List<Integer>> map, int[] cost, long[] ans, int curr, boolean[] visited) {
-        
-        visited[curr] = true;
-        
-        List<Integer> temp = new ArrayList();
-        for(int adj: map.get(curr)) {
-            if(!visited[adj])
-                temp.addAll(dfs(map, cost, ans, adj, visited));
+
+    long[] res;
+    public List<Integer> dfs(int src, HashMap<Integer, HashSet<Integer>> g,
+                                      int[] cost, int parent, boolean[]visited){
+        List<Integer> temp = new ArrayList<>();
+        temp.add(cost[src]);
+        visited[src] = true;
+        for(int adj : g.getOrDefault(src, new HashSet<>())){
+            if(adj != parent && !visited[adj]){
+                temp.addAll(dfs(adj, g, cost, src, visited));
+            }
         }
-        temp.add(cost[curr]);
         Collections.sort(temp);
-        
         int n = temp.size();
-        if(n >= 3) {
-            // if first 2 are minus pick them
-            long left = (long) temp.get(0) * temp.get(1);
-            long right = (long) temp.get(n-3) * temp.get(n-2);
-            ans[curr] = Math.max(0, Math.max(left, right) * temp.get(n-1));
-        } else {
-            ans[curr] = 1;
+        if(n >= 3){
+            long left = (long) temp.get(0) * (long)temp.get(1);
+            long right = (long) temp.get(n-3) * (long)temp.get(n-2);
+            res[src] = Math.max(0, Math.max(left, right) * temp.get(n-1));
+        }else{
+            res[src] = 1;
         }
-        
+        if(n <= 5) return temp;
+        List<Integer> ans = new ArrayList<>();
         if(n <= 5) return temp;
         
         return new ArrayList<>(Arrays.asList(temp.get(0), temp.get(1), temp.get(n - 3), temp.get(n - 2), temp.get(n - 1)));
