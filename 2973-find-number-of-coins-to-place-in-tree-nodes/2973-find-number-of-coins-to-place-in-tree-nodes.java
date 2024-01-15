@@ -37,7 +37,14 @@ class Solution {
             res[src] = 1;
         }
         if(n <= 5) return temp;
-        return new ArrayList<>(Arrays.asList(temp.get(0), temp.get(1), temp.get(n - 3), temp.get(n - 2), temp.get(n - 1)));
+        List<Integer> ans = new ArrayList<>();
+        ans.add(temp.get(0));
+        ans.add(temp.get(1));
+        ans.add(temp.get(n-3));
+        ans.add(temp.get(n-2));
+        ans.add(temp.get(n-1));
+        return ans;
+        //return new ArrayList<>(Arrays.asList(temp.get(0), temp.get(1), temp.get(n - 3), temp.get(n - 2), temp.get(n - 1)));
     }
    
 }
