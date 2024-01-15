@@ -1,6 +1,6 @@
 class Solution {
     
-public boolean canMeasureWater(int jug1, int jug2, int target) {
+public boolean canMeasureWater1(int jug1, int jug2, int target) {
     if(jug1+jug2<target) return false;
     if(jug1%2==0&&jug2%2==0&&target%2!=0) return false;
     
@@ -22,7 +22,7 @@ public boolean canMeasureWater(int jug1, int jug2, int target) {
     }
     return false;
 }
-    public boolean canMeasureWater1(int x, int y, int z) {
+    public boolean canMeasureWater(int x, int y, int z) {
         if(x + y < z) return false;
         if(x == z || y == z || x + y == z) return true;
         return z % gcd(x, y) == 0;
