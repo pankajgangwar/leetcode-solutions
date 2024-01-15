@@ -51,7 +51,7 @@ class Solution {
             while (size-- > 0){
                 int[] curr = bfs.poll();
                 if(curr[0] == target) return level;
-                if(Math.abs(curr[0]) > 2 * target) continue;
+                //if(Math.abs(curr[0]) > 2 * target) continue;
                 int pos = curr[0];
                 int vel = curr[1];
                 int[] opt1 = new int[]{curr[0] + curr[1], curr[1] * 2};
