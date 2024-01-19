@@ -1,14 +1,40 @@
 class Solution {
     
-    public static boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
-        Set<String> blockedSet = new HashSet<>();
-        for (int[] block : blocked) {
-            blockedSet.add(block[0] + "," + block[1]);
+    public boolean isEscapePossible(int[][] blocked, int[] s, int[] t) {
+        HashSet<String> blocker = new HashSet<>();
+        for (int[] b : blocked) {
+            blocker.add(b[0] + "," + b[1]);
         }
 
-        return bfs(source, target, blockedSet) && bfs(target, source, blockedSet);
+        return bfs(s, t, blocker) && bfs(t, s, blocker);
+        //return dfs(s, t, s, new HashSet<>(), blocker) && dfs(t, s, t, new HashSet<>(), blocker);
     }
 
+    public boolean dfs(int[] s, int[] t, int[] c, HashSet<String> visited,
+                   HashSet<String> blocked){
+        if(c[0] == t[0] && c[1] == t[1]) return true;
+
+        if(Math.abs(s[0] - c[0]) + Math.abs(s[1] - c[1]) > 200){
+             return true;
+        }
+        visited.add(c[0] + "," + c[1]);
+
+        int[][] dirs = new int[][] {{ -1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        for(int d[] : dirs) {
+            int row = d[0] + c[0];
+            int col = d[1] + c[1];
+            String next = row + "," + col;
+            if(row >= 0 && row < (100_00_00) 
+               && col > 0 && col < (100_00_00)
+               && !blocked.contains(next) && !visited.contains(next)){
+                if(dfs(s, t, new int[]{row, col}, visited, blocked)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     private static boolean bfs(int[] source, int[] target, Set<String> blockedSet) {
         int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         Queue<int[]> queue = new LinkedList<>();
