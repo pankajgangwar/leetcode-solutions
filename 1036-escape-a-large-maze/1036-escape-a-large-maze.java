@@ -43,43 +43,5 @@ class Solution {
 
         return false;
     }
-    
-    public boolean isEscapePossible1(int[][] blocked, int[] s, int[] t) {
-        HashSet<String> blockers = new HashSet<>();
-        for(int[] b : blocked){
-            blockers.add(b[0] + "," + b[1]);
-        }
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(s);
 
-        HashSet<String> visited = new HashSet<>();
-        visited.add(s[0] + "," + s[1]);
-
-        int[][] dirs = new int[][] {{ -1, 0}, {1, 0}, {0, 1}, {0, -1}};
-        while(!q.isEmpty()){
-            int[] c = q.poll();
-            if(Arrays.equals(c, t )) return true;
-            for(int i = 0; i < dirs.length; i++){
-                int next_x = dirs[i][0] + c[0];
-                int next_y = dirs[i][1] + c[1];
-                int[] next = new int[]{next_x, next_y};
-                String key = next[0] + "," + next[1];
-                if(next_x < 0 || next_x >= (100_00_00) || next_y < 0 || next_y >= (100_00_00)
-                        || blockers.contains(key) || visited.contains(key)){
-                    return false;
-                }
-                /*
-                if(next_x >= 0 && next_x < (100_00_00) && next_y >= 0 && next_y < (100_00_00)
-                        && !blockers.contains(key) && visited.add(key)){
-                    q.offer(next);
-                    if (visited.size() == blockers.size()) {
-                        return true;
-                    }
-                }
-                */
-            }
-        }
-        return false;
-    }    
-    
 }
