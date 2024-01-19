@@ -1,6 +1,6 @@
 class Solution {
     
-    public boolean isEscapePossible(int[][] blocked, int[] s, int[] t) {
+    public boolean isEscapePossible1111(int[][] blocked, int[] s, int[] t) {
     Set<String> blockedSet = new HashSet<>();
     for (int[] b : blocked)
       blockedSet.add(b[0] + "," + b[1]);
@@ -29,14 +29,9 @@ class Solution {
             }
         }
       return false;
-   /* return                                            
-        dfs(blockedSet, i + 1, j, target, visited) || 
-        dfs(blockedSet, i - 1, j, target, visited) || 
-        dfs(blockedSet, i, j + 1, target, visited) || 
-        dfs(blockedSet, i, j - 1, target, visited);*/
   }
 
-    public boolean isEscapePossible1111(int[][] blocked, int[] s, int[] t) {
+    public boolean isEscapePossible(int[][] blocked, int[] s, int[] t) {
         HashSet<String> blocker = new HashSet<>();
         for (int[] b : blocked) {
             blocker.add(b[0] + "," + b[1]);
@@ -48,20 +43,22 @@ class Solution {
 
     public boolean dfs(int[] s, int[] t, HashSet<String> visited,
                    HashSet<String> blocked){
-        visited.add(s[0] + "," + s[1]);
+        String key = s[0] + "," + s[1];
+        if(s[0] < 0 || s[0] >= 1e6 
+               || s[1] < 0 || s[1] >= (1e6)
+               || blocked.contains(key)  
+               || visited.contains(key)){
+            return false;
+        }
+        visited.add(key);
         if((s[0] == t[0] && s[1] == t[1]) || visited.size() > 20000) return true;
-
+        
         int[][] dirs = new int[][] {{ -1, 0}, {1, 0}, {0, 1}, {0, -1}};
         for(int d[] : dirs) {
             int row = d[0] + s[0];
             int col = d[1] + s[1];
-            String next = row + "," + col;
-            if(row >= 0 && row < (100_00_00) 
-               && col > 0 && col < (100_00_00)
-               && !blocked.contains(next) && !visited.contains(next)){
-                if(dfs(new int[]{row, col}, t, visited, blocked)){
-                    return true;
-                }
+            if(dfs(new int[]{row, col}, t, visited, blocked)){
+                return true;
             }
         }
         return false;
