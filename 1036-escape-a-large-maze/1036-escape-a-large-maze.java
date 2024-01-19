@@ -19,17 +19,13 @@ class Solution {
     if (visited.size() > (1 + 199) * 199 / 2 || (i == target[0] && j == target[1]))
       return true;
 
-    return                                            //
-        dfs(blockedSet, i + 1, j, target, visited) || //
-        dfs(blockedSet, i - 1, j, target, visited) || //
-        dfs(blockedSet, i, j + 1, target, visited) || //
+    return                                            
+        dfs(blockedSet, i + 1, j, target, visited) || 
+        dfs(blockedSet, i - 1, j, target, visited) || 
+        dfs(blockedSet, i, j + 1, target, visited) || 
         dfs(blockedSet, i, j - 1, target, visited);
   }
 
-  private long hash(int i, int j) {
-    return ((long) i << 16) + j;
-  }
-    
     public boolean isEscapePossible11(int[][] blocked, int[] s, int[] t) {
         HashSet<String> blocker = new HashSet<>();
         for (int[] b : blocked) {
