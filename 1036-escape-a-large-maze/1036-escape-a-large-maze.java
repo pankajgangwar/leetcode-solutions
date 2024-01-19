@@ -19,41 +19,47 @@ class Solution {
     if (visited.size() > 20000 || (i == target[0] && j == target[1]))
       return true;
 
-    return                                            
+      int[][] dirs = new int[][] {{ -1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        for(int d[] : dirs) {
+            int row = d[0] + i;
+            int col = d[1] + j;
+            String next = row + "," + col;
+            if(dfs(blockedSet, row, col, target, visited)){
+                return true;
+            }
+        }
+      return false;
+   /* return                                            
         dfs(blockedSet, i + 1, j, target, visited) || 
         dfs(blockedSet, i - 1, j, target, visited) || 
         dfs(blockedSet, i, j + 1, target, visited) || 
-        dfs(blockedSet, i, j - 1, target, visited);
+        dfs(blockedSet, i, j - 1, target, visited);*/
   }
 
-    public boolean isEscapePossible11(int[][] blocked, int[] s, int[] t) {
+    public boolean isEscapePossible1111(int[][] blocked, int[] s, int[] t) {
         HashSet<String> blocker = new HashSet<>();
         for (int[] b : blocked) {
             blocker.add(b[0] + "," + b[1]);
         }
 
-        return bfs(s, t, blocker) && bfs(t, s, blocker);
-        //return dfs(s, t, s, new HashSet<>(), blocker) && dfs(t, s, t, new HashSet<>(), blocker);
+        //return bfs(s, t, blocker) && bfs(t, s, blocker);
+        return dfs(s, t, new HashSet<>(), blocker) && dfs(t, s, new HashSet<>(), blocker);
     }
 
-    public boolean dfs(int[] s, int[] t, int[] c, HashSet<String> visited,
+    public boolean dfs(int[] s, int[] t, HashSet<String> visited,
                    HashSet<String> blocked){
-        if(c[0] == t[0] && c[1] == t[1]) return true;
-
-        if(Math.abs(s[0] - c[0]) + Math.abs(s[1] - c[1]) > 200){
-             return true;
-        }
-        visited.add(c[0] + "," + c[1]);
+        visited.add(s[0] + "," + s[1]);
+        if((s[0] == t[0] && s[1] == t[1]) || visited.size() > 20000) return true;
 
         int[][] dirs = new int[][] {{ -1, 0}, {1, 0}, {0, 1}, {0, -1}};
         for(int d[] : dirs) {
-            int row = d[0] + c[0];
-            int col = d[1] + c[1];
+            int row = d[0] + s[0];
+            int col = d[1] + s[1];
             String next = row + "," + col;
             if(row >= 0 && row < (100_00_00) 
                && col > 0 && col < (100_00_00)
                && !blocked.contains(next) && !visited.contains(next)){
-                if(dfs(s, t, new int[]{row, col}, visited, blocked)){
+                if(dfs(new int[]{row, col}, t, visited, blocked)){
                     return true;
                 }
             }
