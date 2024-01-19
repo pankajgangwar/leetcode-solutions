@@ -16,7 +16,7 @@ class Solution {
       return false;
 
     visited.add(key);
-    if (visited.size() > (1 + 199) * 199 / 2 || (i == target[0] && j == target[1]))
+    if (visited.size() > (200) * 200 / 2 || (i == target[0] && j == target[1]))
       return true;
 
     return                                            
