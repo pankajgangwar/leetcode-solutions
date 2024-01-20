@@ -1,7 +1,7 @@
  class Solution {
 		public boolean canFinish(int numCourses, int[][] prerequisites) {
 			return ifCanFinish(numCourses, prerequisites);
-			//return checkCourseOrder(graph.getNodes());
+			
 		}
      
       public boolean ifCanFinish(int n, int[][] dep){
