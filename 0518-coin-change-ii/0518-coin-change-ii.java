@@ -5,7 +5,8 @@ class Solution {
         /*int[][] memo = new int[coins.length+1][amount+1];
         int res = coinChangeIIMemo(amount, coins, coins.length, memo);
         return res;*/
-        return coinChangeDP2(amount, coins);
+        //return coinChangeDP2(amount, coins);
+        return coinChangeIIDP(amount, coins);
     }
 
     public int coinChangeDP2(int amount, int[] coins){
@@ -34,7 +35,8 @@ class Solution {
         return dp[n][amount];
     }
     
-     public int coinChangeIIDP(int amount, int[] coins, int n) {
+     public int coinChangeIIDP(int amount, int[] coins) {
+        int n = coins.length;
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, 0);
         dp[0] = 1;
