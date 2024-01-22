@@ -18,11 +18,11 @@ class Solution {
         int from = request[index][0];
         int to = request[index][1];
         
+        count[from]--;
+        count[to]++;
+        helper(index + 1, currReques + 1, count, request);
         count[from]++;
         count[to]--;
-        helper(index + 1, currReques + 1, count, request);
-        count[to]++;
-        count[from]--;
         
         helper(index + 1, currReques, count, request);
     }
