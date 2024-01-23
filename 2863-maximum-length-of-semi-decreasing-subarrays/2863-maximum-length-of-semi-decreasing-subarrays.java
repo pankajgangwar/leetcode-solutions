@@ -5,9 +5,11 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             if(st.isEmpty() || nums[st.peek()] < nums[i]) st.push(i);
         }
+        System.out.println(st);
         int res = 0;
         for (int i = nums.length - 1; i >=0; i--) {
             while (!st.isEmpty() && nums[st.peek()] > nums[i]){
+                System.out.println(st + " " + nums[i]);
                 res = Math.max(res, i - st.pop() + 1);
             }
         }
