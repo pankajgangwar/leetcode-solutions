@@ -10,14 +10,8 @@ class Solution {
                 if(Math.abs(nums[j] - nums[i]) <= t && dp[j] != -1){
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
-                /*
-                else{
-                    dp[i] = Math.max(dp[i], dp[j]);
-                }
-                */
             }
         }
-        System.out.println(" dp " + Arrays.toString(dp));
-        return dp[n - 1] == 0 ? -1 : dp[n - 1];
+        return dp[n - 1];
     }
 }
