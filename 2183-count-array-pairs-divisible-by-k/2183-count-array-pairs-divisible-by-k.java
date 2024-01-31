@@ -4,8 +4,11 @@ class Solution {
     public long countPairs(int[] nums, int k) {
         HashMap<Long, Long> cnt = new HashMap<>();
         for(int a : nums){
-            cnt.merge(BigInteger.valueOf(a).gcd(BigInteger.valueOf(k)).longValue(), 1L, Long::sum);
+            long key = BigInteger.valueOf(a).gcd(BigInteger.valueOf(k)).longValue();
+            cnt.put(key, cnt.getOrDefault(key, 0l) + 1l);
+            //cnt.merge(key, 1l, Long::sum);
         }
+        System.out.println(cnt);
         long res = 0;
         for(long x : cnt.keySet()){
             for(long y : cnt.keySet()){
