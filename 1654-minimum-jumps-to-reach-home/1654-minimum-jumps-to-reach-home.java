@@ -27,8 +27,6 @@ class Solution {
         
         while (!q.isEmpty()) {
             Jump curr = q.poll();
-            //if(curr.pos > maxLimit) return -1;
-            //System.out.println("curr " + curr.pos);
             if (curr.pos == x) return curr.steps;
             int forward = curr.pos + a;
             int backward = curr.pos - b;
@@ -45,7 +43,6 @@ class Solution {
                 visited.add(forw);
                 q.offer(new Jump(forward, false, curr.steps + 1));
             }
-            
         }
         return -1;
     }
