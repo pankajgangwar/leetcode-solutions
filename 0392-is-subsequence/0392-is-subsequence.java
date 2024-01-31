@@ -2,7 +2,7 @@ class Solution {
     public boolean isSubsequence(String s, String t) {
         //int length = subSequenceDP(s.toCharArray(), t.toCharArray());
         //return length == s.length();
-		boolean res = isSubSequence(s, t);
+		boolean res = subSequence(s, t);
 		return res;
     }
 
@@ -17,7 +17,10 @@ class Solution {
 		return i == s.length();
 	}
     
-     public int subSequence(char s[], char t[]) {
+     public boolean subSequence(String src, String tar) {
+         char[] s = src.toCharArray();
+         char[] t = tar.toCharArray();
+         
          int m = s.length;
          int n = t.length;
          
@@ -32,7 +35,7 @@ class Solution {
                  }
              }
          }
-         return dp[m][n];
+         return dp[m][n] == m;
     }
     
 }
