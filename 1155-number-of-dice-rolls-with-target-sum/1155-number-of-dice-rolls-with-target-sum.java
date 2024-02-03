@@ -6,7 +6,7 @@ class Solution {
     public static int findWays(int m, int n, int target){
 
         int[][] table = new int[n+1][target+1];
-        int mod = 1000000007;
+        int mod = (int)1e9+7;
 
         for(int j = 1; j <= m && j <= target; j++)
             table[1][j] = 1;
