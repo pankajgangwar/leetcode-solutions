@@ -6,9 +6,8 @@ class Solution {
         long badPairs = 0L;
         int mod = (int)1e9 + 7;
         for(int i = 0; i < n; i++){
-            StringBuilder rev = new StringBuilder("" + nums[i]);
-            rev.reverse();
-            long diff = (long)nums[i] - Long.parseLong(rev.toString());
+            String rev = new StringBuilder(String.valueOf(nums[i])).reverse().toString();
+            long diff = (long)nums[i] - Long.parseLong(rev);
             
             badPairs += badPairsMap.getOrDefault(diff, 0L);
             badPairs %= mod;
