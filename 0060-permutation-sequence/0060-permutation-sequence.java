@@ -16,11 +16,13 @@ class Solution {
         }
         
         k = k -1;
+        
+        System.out.println(Arrays.toString(fact));
 
         StringBuilder builder = new StringBuilder();
-        for (int i = n; i > 0; --i) {
-            int idx = k / fact[i -1];
-            k = k % fact[i-1];
+        for (int i = n -1; i >= 0; --i) {
+            int idx = k / fact[i];
+            k = k % fact[i];
             builder.append(nums.remove(idx));
         }
         return builder.toString();
