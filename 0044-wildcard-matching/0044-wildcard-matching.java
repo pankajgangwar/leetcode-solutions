@@ -2,7 +2,7 @@ class Solution {
         public boolean isMatch(String s, String p) {
         //replace multiple * with one *
         //e.g a**b***c --> a*b*c
-         char[] str = s.toCharArray();
+        char[] str = s.toCharArray();
          int writeIndex = 0;
          boolean isFirst = true;
          char[] pattern = p.toCharArray();
@@ -17,6 +17,9 @@ class Solution {
                  isFirst = true;
              }
          }
+            
+        char[] newPattern = Arrays.copyOf(pattern, writeIndex);
+        System.out.println(new String(newPattern) );
 
         boolean[][] dp = new boolean[str.length +1][writeIndex+1];
 
