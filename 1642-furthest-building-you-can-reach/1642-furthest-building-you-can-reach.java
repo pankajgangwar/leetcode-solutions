@@ -7,7 +7,7 @@ class Solution {
             if(d <= 0) continue;
             pq.offer(d);
             bricks -= d;
-            if(bricks < 0){
+            if(bricks < 0){ // if no more bricks left, use ladder and restore max bricks
                 bricks += pq.poll();
                 if(ladders > 0) ladders--;
                 else return i;
