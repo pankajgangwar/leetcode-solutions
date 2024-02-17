@@ -4,6 +4,7 @@ class Solution {
         int n = heights.length;
         for (int i = 0; i < n - 1; i++) {
             int d = heights[i + 1] - heights[i];
+            if(d <= 0) continue;
             if(d > 0){
                 pq.offer(d);
             }
