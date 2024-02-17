@@ -7,6 +7,6 @@ class Solution {
                 nums[i++] = a;
             }
         }
-        return i++;
+        return i;
     }
 }
