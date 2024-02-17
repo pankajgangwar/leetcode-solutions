@@ -35,10 +35,7 @@ class Solution {
                 
                 int r1 = dp1[i][j].row;
                 int c1 = dp1[i][j].col;
-                
-               // System.out.print(r1 + "," + c1 +" ");
             }
-            // System.out.println();
         }
         
         int min = 0;
@@ -48,23 +45,15 @@ class Solution {
                     dp2[i][j].row = 1 + (j > 0 ? dp2[i][j - 1].row : 0);
                     dp2[i][j].col = 1 + (i > 0 ? dp2[i - 1][j].col : 0);
                     
-                    //System.out.println(dp1[i][j].row + " , " + dp1[i][j].col);
-                    //System.out.println(dp2[i][j].row + " , " + dp2[i][j].col);
-                    
                     int a = Math.min(dp1[i][j].col, dp2[i][j].col);
                     int b = Math.min(dp1[i][j].row, dp2[i][j].row);
-                    
-                    //System.out.println("a " + a + "," + " b " + b);
                     min = Math.max(min,  Math.min(a, b));
                 }else{
                     dp2[i][j].row =  dp2[i][j].col = 0;
                 }
                 int r1 = dp2[i][j].row;
                 int c1 = dp2[i][j].col;
-                
-                //System.out.print(r1 + "," + c1 +" ");
             }
-             //System.out.println();
         }
         return min;
     }
