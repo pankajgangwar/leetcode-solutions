@@ -6,9 +6,9 @@ class Solution {
             int d = heights[i + 1] - heights[i];
             if(d > 0){
                 pq.offer(d);
-                if(!pq.isEmpty() && pq.size() > ladders){
-                    bricks -= pq.poll();
-                }
+            }
+            if(pq.size() > ladders){
+                bricks -= pq.poll();
             }
             if(bricks < 0){
                 return i;
