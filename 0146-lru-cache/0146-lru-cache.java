@@ -34,52 +34,47 @@ class LRUCache {
 		return temp.value;
     }
     
-    public void put(int key, int value) {
-        if(mMap.containsKey(key)) {
-				Node temp = mMap.get(key);
-				temp.value = value;
-				
-				removeNode(temp);
-				addToTail(temp);
-			}else {
-				if(mMap.size() >= cap) {
-					mMap.remove(head.key);
-					removeNode(head);
-				}
-				Node child = new Node(key,value);
-				addToTail(child);
-				mMap.put(key, child);
-			}
-    }
-    
-        private void addToTail(Node temp) {
-			if(tail != null) {
-				tail.next = temp;
-			}
-			temp.prev = tail;
-			temp.next = null;
-			tail = temp;
-			
-			if(head == null) {
-				head = tail;
-			}
-		}
+        public void put(int key, int value) {
+            if(mMap.containsKey(key)){
+                    Node n = mMap.get(key);
+                    n.value = value;
+                    removeNode(n);
+                    addToTail(n);
+                }else{
+                    if(mMap.size() >= cap){
+                        mMap.remove(head.key);
+                        removeNode(head);
+                    }
+                    Node n = new Node(key, value);
+                    mMap.put(key, n);
+                    addToTail(n);
+                }
+        }
+        public void removeNode(Node temp){
+            if(temp.prev != null){
+                temp.prev.next = temp.next;
+            }else{
+                head = temp.next; //remove from head
+            }
+            if(temp.next != null){
+                temp.next.prev = temp.prev;
+            }else{
+                tail = temp.prev; //remove from tail
+            }
+        }
 
-		private void removeNode(Node temp) {
-			if(temp.prev != null) {
-				temp.prev.next = temp.next;
-			}else {
-				//Remove from head
-				head = temp.next;
-			}
-			
-			if(temp.next != null) {
-				temp.next.prev = temp.prev;
-			}else {
-				//Remove from tail
-				tail = temp.prev;
-			}
-		}
+        public void addToTail(Node temp){
+            if(tail != null){
+                tail.next = temp;
+            }
+            temp.prev = tail;
+            temp.next = null;
+            tail = temp;
+
+            if(head == null){
+                head = tail;
+            }
+        }
 }
 
 /**
