@@ -32,9 +32,6 @@ class Solution {
                 }else{
                     dp1[i][j].row =  dp1[i][j].col = 0;
                 }
-                
-                int r1 = dp1[i][j].row;
-                int c1 = dp1[i][j].col;
             }
         }
         
@@ -51,8 +48,6 @@ class Solution {
                 }else{
                     dp2[i][j].row =  dp2[i][j].col = 0;
                 }
-                int r1 = dp2[i][j].row;
-                int c1 = dp2[i][j].col;
             }
         }
         return min;
