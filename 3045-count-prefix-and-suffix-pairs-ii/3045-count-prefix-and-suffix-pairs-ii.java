@@ -14,8 +14,10 @@ class Solution {
                 char first = w.charAt(i);
                 char last = w.charAt(n - i - 1);
                 int key = first * 128 + last;
-                x = x.children.computeIfAbsent(key, _ -> new TrieNode());
                 //x = x.children.computeIfAbsent(key, _ -> new TrieNode());
+                //x = x.children.computeIfAbsent(key, _ -> new TrieNode());
+                x.children.putIfAbsent(key, new TrieNode() );
+                x = x.children.get(key);
                 max += x.count;
             }
             x.count++;
