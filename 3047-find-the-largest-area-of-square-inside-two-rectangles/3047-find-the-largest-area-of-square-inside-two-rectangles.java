@@ -11,16 +11,12 @@ class Solution {
         return max;
     }
 
-    public long computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
-        boolean isIntersecting = A < G && E < C && B < H && F < D;
-
-        int area1 = (C - A) * (D - B);
-        int area2 = (G - E) * (H - F);
+    public long computeArea(int a1, int a2, int b1, int b2, int x1, int x2, int y1, int y2) {
+        boolean isIntersecting = a1 < y1 && x1 < b1 && a2 < y2 && x2 < b2;
 
         if(isIntersecting){
-            int width = Math.min(G, C) - Math.max(A, E);
-            int height = Math.min(D, H) - Math.max(F, B);
-            //System.out.println("width " + width + " height " + height);
+            int width = Math.min(y1, b1) - Math.max(a1, x1);
+            int height = Math.min(b2, y2) - Math.max(x2, a2);
             int a = Math.min(width, height);
             return (long)a*a;
         }else{
