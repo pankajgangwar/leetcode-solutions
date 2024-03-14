@@ -1,5 +1,22 @@
 class Solution {
     public int numSubarraysWithSum(int[] arr, int s) {
+        int n = arr.length;
+        int[] count = new int[n + 1];
+        int res = 0;
+        
+        count[0] = 1;
+        int sum = 0;
+        for(int i = 0; i < n; i++){
+            sum += arr[i];
+            if(sum >= s){
+                res += count[sum - s];
+            }
+            count[sum]++; 
+        }
+        return res;
+    }
+    
+    public int numSubarraysWithSum1(int[] arr, int s) {
         return atMostSum(arr, s) - atMostSum(arr, s - 1);
     }
     
