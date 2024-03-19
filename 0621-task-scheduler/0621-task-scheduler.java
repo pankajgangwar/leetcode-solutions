@@ -17,6 +17,7 @@ class Solution {
         while(!pq.isEmpty() || !time.isEmpty()){
             
             int prevTime = currTime - n - 1;
+ //System.out.println("currTime" + currTime + " prevTime " + prevTime + " pq " + pq.toString() + " time " + time.toString());
             if(time.containsKey(prevTime)){
                 int prevRem = time.get(prevTime);
                 time.remove(prevTime);
