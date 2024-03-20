@@ -1,38 +1,36 @@
 class Solution {
+    
     public int leastInterval(char[] tasks, int n) {
-        
-        HashMap<Character, Integer> map = new HashMap<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b - a);
         
+        int[] freq = new int[26];
         for(char ch : tasks){
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
+            freq[ch - 'A']++;
         }
         
-        for(Map.Entry<Character, Integer> entry : map.entrySet()){
-            pq.offer(entry.getValue());
+        char ch = 'A';
+        for(int a : freq){
+            if(a > 0){
+                pq.offer(a);
+            }
+            ch++;
         }
         
-        HashMap<Integer, Integer> time = new HashMap<>();
         int currTime = 0;
+        HashMap<Integer, Integer> time = new HashMap<>();
         while(!pq.isEmpty() || !time.isEmpty()){
-            
             int prevTime = currTime - n - 1;
- //System.out.println("currTime" + currTime + " prevTime " + prevTime + " pq " + pq.toString() + " time " + time.toString());
             if(time.containsKey(prevTime)){
                 int prevRem = time.get(prevTime);
                 time.remove(prevTime);
                 pq.offer(prevRem);
             }
-            
             if(!pq.isEmpty()){
-                int rem = pq.poll() - 1;
-                if(rem != 0){
-                    time.put(currTime, rem);
-                }
+                int a = pq.poll() - 1;
+                if(a > 0) time.put(currTime, a);
             }
             currTime += 1;
         }
         return currTime;
-        
     }
 }
