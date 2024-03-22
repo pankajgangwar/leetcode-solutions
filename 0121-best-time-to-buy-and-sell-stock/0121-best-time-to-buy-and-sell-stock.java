@@ -12,14 +12,10 @@ class Solution {
         int n = prices.length;
         int max_profit = 0;
         for(int i = 1; i < n; i++){
-            
-            if(prices[i] > max){
-                max = prices[i];
-            }
-           
+            max = Math.max(max, prices[i]);
             if(prices[i] < min){
                 min = prices[i];
-                max = prices[i];
+                max = min;
             }
             max_profit = Math.max(max_profit, max - min);
         }
