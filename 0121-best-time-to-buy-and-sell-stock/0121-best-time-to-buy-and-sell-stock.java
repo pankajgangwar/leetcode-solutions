@@ -1,6 +1,7 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        return usingKadanesAlgo(prices);
+        //return usingKadanesAlgo(prices);
+        return usingDp(prices);
     }
     
     public int usingDp(int[] prices){
