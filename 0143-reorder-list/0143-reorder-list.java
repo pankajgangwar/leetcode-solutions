@@ -29,17 +29,17 @@ class Solution {
     }
 
     public ListNode reverse(ListNode head){
-        ListNode prev = null;
+        ListNode newHead = null;
         ListNode curr = head;
         ListNode next = null;
 
         while(curr != null){
             next = curr.next;
-            curr.next = prev;
-            prev = curr;
+            curr.next = newHead;
+            newHead = curr;
             curr = next;
         }
-        return prev;
+        return newHead;
     }
 
     public void merge(ListNode l1, ListNode l2){
