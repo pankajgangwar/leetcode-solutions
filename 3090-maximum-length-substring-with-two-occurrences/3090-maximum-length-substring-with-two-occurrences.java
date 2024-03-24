@@ -1,6 +1,23 @@
 class Solution {
+    
     public int maximumLengthSubstring(String s) {
-       int start = 0, end = 0;
+        int res = 0;
+        int n = s.length();
+        HashMap<Character, Integer> map = new HashMap<>();
+        int[] freq = new int[26];
+        for (int end = 0, start = 0 ; end < n; end++) {
+            freq[s.charAt(end) - 'a']++;
+            while (freq[s.charAt(end) - 'a'] > 2){
+                freq[s.charAt(start++) - 'a']--;
+            }
+            res = Math.max(res, end - start + 1);
+        }
+        System.out.println(res);
+        return res;
+    }
+    
+    public int maximumLengthSubstring1(String s) {
+        int start = 0, end = 0;
         int res = 0;
         int n = s.length();
         HashMap<Character, Integer> map = new HashMap<>();
