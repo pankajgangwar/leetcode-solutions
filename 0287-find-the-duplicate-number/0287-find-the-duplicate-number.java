@@ -6,18 +6,17 @@ class Solution {
         int low = 1, high = n;
         while(low < high){
             int mid = low + (high - low) / 2;
-            //System.out.println(" mid " + mid);
             int cnt = 0;
             for(int i = 0; i < n; i++){
                 cnt += nums[i] <= mid ? 1 : 0;
             }
-            if(cnt > mid){
+            if(cnt > mid){ 
                 high = mid;
             }else{
                 low = mid + 1;                
             }
         }
-        return high; 
+        return low; 
     }
     
      public int findDuplicate(int[] nums) {
