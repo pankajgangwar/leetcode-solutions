@@ -10,12 +10,8 @@ class Solution {
         while (slow != fast) {
             slow = nums[slow];
             fast = nums[nums[fast]];
-            
-            //System.out.println(" slow " + slow + " fast "  + fast);
-            
         }
         slow = 0;
-        //System.out.println(" **** fast "  + fast);
         while (slow != fast) {
             slow = nums[slow];
             fast = nums[fast];
