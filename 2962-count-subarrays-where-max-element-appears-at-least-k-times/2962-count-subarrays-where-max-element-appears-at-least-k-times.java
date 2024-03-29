@@ -14,9 +14,9 @@ class Solution {
             if(nums[end] == max) count++;
             while(count >= k){
                 count -= nums[start++]  == max ? 1 : 0;
-               res += n - end; 
+               //res += n - end; 
             }
-            //res += start;
+            res += start;
         }
         return res;
     }
