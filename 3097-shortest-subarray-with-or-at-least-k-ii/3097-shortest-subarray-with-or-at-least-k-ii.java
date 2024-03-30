@@ -1,28 +1,39 @@
 class Solution {
-public:
-    void performOrOperation(vector<int>& bitCount, int& orVal, int n){
-    orVal = (orVal | n);
-    for(int t = 0; t < 32; ++t) bitCount[t] += (n & (1 << t))?1:0;
-}
+    public int minimumSubarrayLength(int[] arr, int k){
+        int n = arr.length;
+        int[] bitCount = new int[32];
 
-void nullifyOrOperation(vector<int>& bitCount, int& orVal, int n){
-    for(int t = 0; t < 32; ++t){
-        bitCount[t] += (n & (1 << t))?-1:0;
-        if(bitCount[t] == 0) orVal = orVal & (~(1<<t));
+        int orVal = 0;
+        int ans = Integer.MAX_VALUE;
+        for(int end = 0, start = 0; end < n; end++) {
+            orVal |= arr[end];
+            performOrOperation(bitCount, (long)arr[end]);
+            if(orVal < k)continue;
+            for (; start <= end && orVal >= k; start++){
+                orVal = nullifyOrOperation(orVal, bitCount, (long)arr[start]);
+                ans = Math.min(ans, end - start + 1);
+            }
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
     }
-}
 
-int minimumSubarrayLength(vector<int>& nums, int k) {
-    int orVal = 0, ans = INT_MAX;
-    vector<int> bitCount(32, 0);
-    for(int i = 0, j = 0; i < nums.size(); ++i){
-        performOrOperation(bitCount, orVal, nums[i]);
-        if(orVal < k) continue; 
-        for( ;j <= i && orVal >= k; j++){
-            nullifyOrOperation(bitCount, orVal, nums[j]);
-            ans = min(ans, i - j + 1);
+    private int nullifyOrOperation(int orVal, int[] bitCount, long n) {
+        for (int i = 0; i < 32; i++) {
+            //bitCount[i] -= (n & (1 << i));
+            if((n & (1 << i)) > 0){
+                bitCount[i] -= 1;
+            }
+            if(bitCount[i] == 0) orVal = orVal & (~(1<<i));
+        }
+        return orVal;
+    }
+
+    private void performOrOperation(int[] bitCount, long n) {
+        for (int i = 0; i < 32; i++) {
+            //bitCount[i] += n & (1 << i) ;
+            if((n & (1 << i)) > 0){
+                bitCount[i] += 1;
+            }
         }
     }
-    return (ans == INT_MAX)? -1: ans;
 }
-};
