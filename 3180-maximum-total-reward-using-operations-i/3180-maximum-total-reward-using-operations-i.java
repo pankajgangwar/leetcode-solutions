@@ -1,6 +1,26 @@
 class Solution {
     
-    public int maxTotalReward(int[] A) {
+     public int maxTotalReward(int[] A) {
+        Arrays.sort(A);
+        int n = A.length;
+        boolean[] dp = new boolean[50000];
+        dp[0] = true;
+        int max = 0;
+        for(int i = 0 ; i < n; i++){
+            if(i == 0 || A[i-1] != A[i]){
+                int limit = Math.min(A[i], A[n-1] - A[i]);
+                for (int j = 0; j < limit; j++) {
+                    if(dp[j]){
+                        dp[j + A[i]] = true;
+                        max = Math.max(max, j + A[i]);
+                    }
+                }
+            }
+        }
+        return max + A[n-1];
+    }
+    
+    public int maxTotalRewardRecursive(int[] A) {
         Arrays.sort(A);
         int[][] memo = new int[A.length][(int)1e4];
         return helper(0, memo, A, 0);
